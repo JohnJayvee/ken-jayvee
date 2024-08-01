@@ -14,8 +14,9 @@ export default function CartItem({
   }
   return (
     <li className="cart-item">
+      <img src={imageItem} alt={`${itemName}`} />
       <p>
-        {imageItem} {itemName} - {quantity} x {`₱${price}`}
+        {itemName} - {quantity} x {`₱${price}`}
       </p>
       <div className="cart-item-actions">
         <button onClick={onDecrease}>-</button>

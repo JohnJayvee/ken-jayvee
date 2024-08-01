@@ -98,7 +98,9 @@ function Header() {
                 <img src={myOrderIcon} style={{ height: "4rem" }} />
               </Button>
               <Button className="nav-link px-1 link-secondary">
-                <Link to="/login">
+                {" "}
+                {/* Drop down user profile including UserName, Avatar, Email & Logout */}
+                <Link to="/profile">
                   {" "}
                   <img src={userIcon} style={{ height: "2rem" }} />
                 </Link>
