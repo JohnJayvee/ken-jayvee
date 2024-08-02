@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Input from "../UI/InputBlock";
 import Button from "../UI/Button";
+import contactImage from "./contact_pet.png";
 
 const FeedbackJ = () => {
   const [formData, setFormData] = useState({
@@ -56,9 +57,9 @@ const FeedbackJ = () => {
       <div className="text-center mt-5">
         <h6 className="h1">Contact Us</h6>
       </div>
-      <div className="row">
-        <div className="col-md-4 ">
-          <div className="">
+      <div className="row d-flex justify-content-md-center">
+        <div className="col-md-4">
+          <div className="border border-black rounded p-md-5">
             <h2 className="h2">Get in Touch</h2>
             <form onSubmit={handleSubmit} noValidate>
               <div className="">
@@ -144,9 +145,6 @@ const FeedbackJ = () => {
               </div>
             </form>
           </div>
-        </div>
-        <div className="col-md-4">
-          <img src={contactImage} alt="contact image" />
         </div>
       </div>
       {/* Divider */}
