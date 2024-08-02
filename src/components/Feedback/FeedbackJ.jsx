@@ -52,17 +52,17 @@ const FeedbackJ = () => {
   };
 
   return (
-    <div className="container d-flex-col">
-      <div className="">
+    <div className="container">
+      <div className="text-center mt-5">
         <h6 className="h1">Contact Us</h6>
       </div>
-      <div className="flex flex-wrap -mx-4">
-        <div className="w-full lg:w-8/12 px-4 mb-8">
-          <div className="bg-stone-50 rounded-lg shadow-lg p-6">
+      <div className="row">
+        <div className="col-md-4 ">
+          <div className="">
             <h2 className="h2">Get in Touch</h2>
             <form onSubmit={handleSubmit} noValidate>
-              <div className="flex flex-wrap -mx-2">
-                <div className="w-full md:w-1/2 px-2 mb-4">
+              <div className="">
+                <div className="px-2 mb-4">
                   <Input
                     className={`form-control w-full p-3 border rounded-lg focus:outline-none ${
                       errors.name
@@ -116,13 +116,10 @@ const FeedbackJ = () => {
                 </div>
 
                 <div className="w-full px-2 mb-4">
+                  <h3>Leave a Message : </h3>
                   <textarea
                     className={`form-control w-full h-40 p-3 border rounded-lg focus:outline-none resize-none ${
-                      errors.message
-                        ? "border-red-500"
-                        : formData.message
-                        ? "border-green-500"
-                        : "border-blue-300"
+                      errors.message ? "border-red-500" : formData.message
                     }`}
                     name="message"
                     id="message"
@@ -131,6 +128,7 @@ const FeedbackJ = () => {
                     // onFocus={(e) => (e.target.placeholder = '')}
                     // onBlur={(e) => (e.target.placeholder = 'Enter Message')}
                     placeholder="Enter Message"
+                    required
                   ></textarea>
                   {errors.message && (
                     <p className="text-red-500 text-xs mt-1">
@@ -139,15 +137,20 @@ const FeedbackJ = () => {
                   )}
                 </div>
                 <div className="container px-2">
-                  <Button className="btn btn-dark my-3">Send Message</Button>
+                  <Button className="btn btn-dark mb-3" type="submit">
+                    Send Message
+                  </Button>
                 </div>
               </div>
             </form>
           </div>
         </div>
+        <div className="col-md-4">
+          <img src={contactImage} alt="contact image" />
+        </div>
       </div>
       {/* Divider */}
-      <hr className="my-12 border-gray-300" />
+      <hr className="border-gray-300" />
     </div>
   );
 };
