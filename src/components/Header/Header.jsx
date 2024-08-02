@@ -4,14 +4,16 @@ import cartIcon from "./Untitled_design-removebg-preview.png";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import Button from "../UI/Button";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CartContext from "../../store/CartContext";
 import UserProgressContext from "../../store/UserProgressContext";
 import myOrderIcon from "./place-holder.png";
+import DropdownProfile from "./DropdownProfile";
 
 function Header() {
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
+  const [loadedProfile, setLoadedProfile] = useState(false);
 
   const totalCartItems = cartCtx.items.reduce((totalItems, item) => {
     return totalItems + item.quantity;
@@ -79,13 +81,12 @@ function Header() {
                   </li>
                   <li>
                     <Link to="/userfeedback" className="dropdown-item">
-                      User's Feedback
+                      Customer's Feedback
                     </Link>
                   </li>
                 </ul>
               </div>
             </ul>
-
             <div className="d-flex align-itemscenter">
               <Button
                 onClick={handleShowCart}
@@ -97,15 +98,7 @@ function Header() {
               <Button className="nav-link px-1 link-secondary">
                 <img src={myOrderIcon} style={{ height: "4rem" }} />
               </Button>
-              <Button className="nav-link px-1 link-secondary">
-                {" "}
-                {/* Drop down user profile including UserName, Avatar, Email & Logout */}
-                <Link to="/profile">
-                  {" "}
-                  <img src={userIcon} style={{ height: "2rem" }} />
-                </Link>
-              </Button>
-            </div>
+            </div>{" "}
             <ul className="nav col-12 col-md-auto mb-2 mb-md-0 align-items-center">
               <li>
                 <Link to="/login" className="nav-link px-2 link-secondary">
@@ -118,6 +111,14 @@ function Header() {
                 </Link>
               </li>
             </ul>
+            <Button
+              className="nav-link px-1 link-secondary"
+              onClick={() => setLoadedProfile((prev) => !prev)}
+            >
+              {" "}
+              <img src={userIcon} style={{ height: "2rem" }} />{" "}
+            </Button>
+            {loadedProfile && <DropdownProfile />}
           </div>
         </div>
       </header>

@@ -1,11 +1,9 @@
-import Button from "../UI/Button";
+import Table from "./Table";
 
 export default function PlaceOrder() {
   return (
     <>
-      <table className="table table-striped">
-        <Button />
-      </table>
+      <Table></Table>
     </>
   );
 }
