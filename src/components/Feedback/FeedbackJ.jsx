@@ -137,8 +137,8 @@ const FeedbackJ = () => {
                     </p>
                   )}
                 </div>
-                <div className="container px-2">
-                  <Button className="btn btn-dark mb-3" type="submit">
+                <div className="container">
+                  <Button className="btn btn-dark w-100 mb-2" type="submit">
                     Send Message
                   </Button>
                 </div>

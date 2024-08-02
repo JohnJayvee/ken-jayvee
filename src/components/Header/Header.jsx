@@ -47,7 +47,10 @@ function Header() {
             <span className="navbar-toggler-icon "></span>
           </button>
 
-          <div className="navbar-collapse collapse" id="navbarCollapse">
+          <div
+            className="navbar-collapse collapse justify-content-md-end"
+            id="navbarCollapse"
+          >
             <ul className="navbar-nav col-3 col-md-6 mb-2 mb-md-0">
               <li>
                 <Link to="/home" className="nav-link px-2 link-secondary">
