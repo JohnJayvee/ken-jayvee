@@ -2,7 +2,7 @@ import { useContext } from "react";
 import CartContext from "../../store/CartContext";
 import Button from "../UI/Button";
 
-export default function FoodItem({ foods }) {
+export default function FoodItem({ items }) {
   const cartCtx = useContext(CartContext);
   function handleAddFoodToCart() {
     cartCtx.addItem(foods);
@@ -10,9 +10,9 @@ export default function FoodItem({ foods }) {
   return (
     <li className="food-item">
       <div className="item-card">
-        <img src={foods.images[0]} alt={foods.category.name} />
+        <img src={items.image} alt={items.name} />
         <div>
-          <h3>{foods.title}</h3>
+          <h3>{items.name}</h3>
 
           <p className="food-item-description">
             {foods.description.substring(0, 60)}
@@ -20,7 +20,7 @@ export default function FoodItem({ foods }) {
         </div>
 
         <div className="food-item-actions d-flex justify-content-around">
-          <dt className="food-item-price">₱{foods.price}</dt>
+          <dt className="food-item-price">₱{items.price}</dt>
           <Button className="btn-outline-light" onClick={handleAddFoodToCart}>
             Add to Cart
           </Button>
