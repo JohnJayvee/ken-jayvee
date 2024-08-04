@@ -5,7 +5,7 @@ import Footer from "../components/Footer/Footer";
 import axios from "axios";
 
 export default function Shop() {
-  const [loadedItem, setloadedItem] = useState([]);
+  const [loadedItem, setLoadedItem] = useState([]);
   const initialized = useRef(false);
   // const userProgressCtx = useContext(UserProgressContext);
 
@@ -13,16 +13,16 @@ export default function Shop() {
     if (!initialized.current) {
       initialized.current = true;
       axios
-        .get("http://kodegoapi.test/api/users", {
+        .get("http://kodegoapi.test/api/products", {
           headers: {
             "Content-Type": "application/json",
           },
         })
         .then((response) => {
           console.log("API Response:", response);
-          // Ensure the response data has a staffs array
+          // Ensure the response data has a Products array
           if (response.data.success && Array.isArray(response.data.products)) {
-            setloadedItem(response.data.products);
+            setLoadedItem(response.data.products);
           } else {
             console.error("Unexpected response format:", response.data);
           }
@@ -50,9 +50,9 @@ export default function Shop() {
     <>
       <Header />
       <p className="h1 text-center">Shop</p>
-      <ul id="foods">
+      <ul id="items">
         {loadedItem.map((items) => (
-          <FoodItem key={foods.id} items={items} />
+          <FoodItem key={items.id} items={items} />
         ))}
       </ul>
       <Footer />

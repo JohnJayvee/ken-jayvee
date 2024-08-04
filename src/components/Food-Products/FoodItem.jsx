@@ -5,17 +5,17 @@ import Button from "../UI/Button";
 export default function FoodItem({ items }) {
   const cartCtx = useContext(CartContext);
   function handleAddFoodToCart() {
-    cartCtx.addItem(foods);
+    cartCtx.addItem(items);
   }
   return (
     <li className="food-item">
       <div className="item-card">
-        <img src={items.image} alt={items.name} />
+        <img src={`${items.image}`} alt={items.name} />
         <div>
           <h3>{items.name}</h3>
 
           <p className="food-item-description">
-            {foods.description.substring(0, 60)}
+            {items.description.substring(0, 60)}
           </p>
         </div>
 

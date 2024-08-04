@@ -40,7 +40,7 @@ export default function UserFeedbacks() {
               <p className="h3">{feedbackItem.email}</p>
               <h2 className="fw-normal">{feedbackItem.username}</h2>
               {/* <p>{data.feedback.id}</p>  SAMPLE GET for feedback description*/}
-              <p>"{feedbackItem.totalUsers}"</p>
+              <p>"{feedbackItem.name}"</p>
             </div>
           ))}
         </div>

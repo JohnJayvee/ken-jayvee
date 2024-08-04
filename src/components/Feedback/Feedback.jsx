@@ -32,9 +32,7 @@ const Feedback = () => {
         });
     }
   }, []);
-  // function HandleShowFeedback() {
-  //   userProgressCtx.showFeedback();
-  // }
+
   return (
     <>
       {/* <section className="h1 text-center my-5 position-relative ">
