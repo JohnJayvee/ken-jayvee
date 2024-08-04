@@ -10,7 +10,7 @@ export default function UserFeedbacks() {
     if (!initialized.current) {
       initialized.current = true;
       axios
-        .get("http://127.0.0.1:8000/api/users", {
+        .get("http://kodegoapi.test/api/users", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -40,7 +40,7 @@ export default function UserFeedbacks() {
               <p className="h3">{feedbackItem.email}</p>
               <h2 className="fw-normal">{feedbackItem.username}</h2>
               {/* <p>{data.feedback.id}</p>  SAMPLE GET for feedback description*/}
-              <p>"{feedbackItem.name}"</p>
+              <p>"{feedbackItem.totalUsers}"</p>
             </div>
           ))}
         </div>

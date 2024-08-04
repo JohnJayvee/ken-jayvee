@@ -24,7 +24,7 @@ const FeedbackJ = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/user/register",
+        "http://kodegoapi.test/api/user/register",
         formData,
         {
           headers: {

@@ -1,11 +1,21 @@
 import React from "react";
+import Button from "../UI/Button";
+import { Link } from "react-router-dom";
 
 export default function DropdownProfile() {
   return (
     <div className="d-flex custom-dropdown">
-      <ul className="d-flex-col g-4">
-        <li>Profile</li>
-        <li>Logout</li>
+      <ul className="d-flex-col">
+        <p>Profile</p>
+
+        <Button
+          className="btn-danger"
+          onClick={() => {
+            alert("logout");
+          }}
+        >
+          Logout
+        </Button>
       </ul>
     </div>
   );
