@@ -29,12 +29,12 @@ export default function Cart() {
         {cartCtx.items.map((item) => (
           <CartItem
             key={item.id}
-            itemName={item.category.name}
+            itemName={item.name}
             quantity={item.quantity}
             price={item.price}
             onIncrease={() => cartCtx.addItem(item)}
             onDecrease={() => cartCtx.removeItem(item.id)}
-            itemImage={item.images[0]}
+            itemImage={item.image}
           />
         ))}
       </ul>

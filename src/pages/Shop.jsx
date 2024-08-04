@@ -52,7 +52,7 @@ export default function Shop() {
       <p className="h1 text-center">Shop</p>
       <ul id="items">
         {loadedItem.map((items) => (
-          <FoodItem key={items.id} items={items} />
+          <FoodItem key={items.id} foods={items} />
         ))}
       </ul>
       <Footer />
