@@ -13,7 +13,7 @@ export default function Shop() {
     if (!initialized.current) {
       initialized.current = true;
       axios
-        .get("http://kodegoapi.test/api/products", {
+        .get("http://white-emu-581912.hostingersite.com/api/products", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -33,28 +33,19 @@ export default function Shop() {
     }
   }, []);
 
-  // const [loadedFoods, setLoadedFoods] = useState([]);
-
-  // useEffect(() => {
-  //   fetch("http://kodegoapi.test/api/products")
-  //     .then((resFood) => resFood.json())
-  //     .then((foodData) => {
-  //       setLoadedFoods(foodData);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data:", error);
-  //     });
-  // }, []);
-
   return (
     <>
       <Header />
       <p className="h1 text-center">Shop</p>
-      <ul id="items">
-        {loadedItem.map((items) => (
-          <FoodItem key={items.id} foods={items} />
-        ))}
-      </ul>
+      <div className="container-fluid">
+        <ul className="row h-50" id="items">
+          {loadedItem.map((items) => (
+            <div className="col col-lg-3 col-md-4 my-2 justify-content-sm-center">
+              <FoodItem key={items.id} foods={items} />
+            </div>
+          ))}
+        </ul>
+      </div>
       <Footer />
     </>
   );

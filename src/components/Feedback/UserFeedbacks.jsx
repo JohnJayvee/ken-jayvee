@@ -10,7 +10,7 @@ export default function UserFeedbacks() {
     if (!initialized.current) {
       initialized.current = true;
       axios
-        .get("http://kodegoapi.test/api/users", {
+        .get("http://white-emu-581912.hostingersite.com/api/users", {
           headers: {
             "Content-Type": "application/json",
           },
