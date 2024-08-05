@@ -10,7 +10,10 @@ export default function FoodItem({ foods }) {
   return (
     <li className="food-item">
       <div className="item-card">
-        <img src={foods.image} alt={foods.name} />
+        <img
+          src={`http://white-emu-581912.hostingersite.com/storage/${foods.image}`}
+          alt={foods.name}
+        />
         <div>
           <h3>{foods.name}</h3>
 

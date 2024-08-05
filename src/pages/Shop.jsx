@@ -28,7 +28,7 @@ export default function Shop() {
           }
         })
         .catch((error) => {
-          console.error("Error fetching the team members:", error);
+          console.error("Error fetching the products:", error);
         });
     }
   }, []);

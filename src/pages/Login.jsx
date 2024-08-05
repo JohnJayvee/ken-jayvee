@@ -40,7 +40,7 @@ export default function LoginPage() {
 
     try {
       const response = await axios.post(
-        "http://kodegoapi.test/api/login",
+        "http://white-emu-581912.hostingersite.com/api/login",
         formData,
         {
           headers: {
