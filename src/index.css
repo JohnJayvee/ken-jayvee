@@ -255,6 +255,23 @@ text-align: center;
   border-bottom: 1.5rem solid white;
   }
 
+  /* Pagination  */
+  nav {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .pagination {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .pagination li {
+    margin: 0 1px;
+  }
+
 
 
 @keyframes fade-slide-up {

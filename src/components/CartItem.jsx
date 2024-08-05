@@ -1,7 +1,7 @@
 import useAuth from "./auth";
 
 export default function CartItem({
-  imageItem,
+  image,
   itemName,
   quantity,
   price,
@@ -14,7 +14,10 @@ export default function CartItem({
   }
   return (
     <li className="cart-item">
-      <img src={imageItem} alt={`${itemName}`} />
+      <img
+        src={`https://white-emu-581912.hostingersite.com/storage/${image}`}
+        alt={`${itemName}`}
+      />
       <p>
         {itemName} - {quantity} x {`₱${price}`}
       </p>
