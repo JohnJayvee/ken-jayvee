@@ -13,7 +13,7 @@ const Feedback = () => {
     if (!initialized.current) {
       initialized.current = true;
       axios
-        .get("http://127.0.0.1:8000/api/users", {
+        .get("http://kodegoapi.test/api/users", {
           headers: {
             "Content-Type": "application/json",
           },
@@ -32,9 +32,7 @@ const Feedback = () => {
         });
     }
   }, []);
-  // function HandleShowFeedback() {
-  //   userProgressCtx.showFeedback();
-  // }
+
   return (
     <>
       {/* <section className="h1 text-center my-5 position-relative ">
