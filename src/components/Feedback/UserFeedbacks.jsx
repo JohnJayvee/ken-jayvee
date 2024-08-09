@@ -1,5 +1,4 @@
-import { useState, useRef } from "react";
-import { useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { API_ENDPOINTS } from "../../BaseUrl";
 
@@ -18,7 +17,7 @@ export default function UserFeedbacks() {
         })
         .then((response) => {
           console.log("API Response:", response);
-          // Ensure the response data has a staffs array
+          // Ensure the response data has a feedbacks array
           if (response.data.success && Array.isArray(response.data.feedbacks)) {
             setArray(response.data.feedbacks);
           } else {
@@ -30,18 +29,16 @@ export default function UserFeedbacks() {
         });
     }
   }, []);
+
   return (
     <>
-      <p className="h1 text-lg-center">USER FEEDBACK</p>
-      <div className="container">
-        <div className={`d-flex text-center mx-5`}>
+      <p className="text-center text-lg font-bold">USER FEEDBACK</p>
+      <div className="container mx-auto">
+        <div className="flex flex-wrap justify-center">
           {array.slice(0, 3).map((feedbackItem) => (
-            <div className={`col-lg my-5 g-5`}>
-              {/* key={feedbackItem.id} */}
-              <p className="h3">{feedbackItem.name}</p>
-              <h2 className="fw-normal">{feedbackItem.feedback}</h2>
-              {/* <p>{data.feedback.id}</p>  SAMPLE GET for feedback description*/}
-              {/* <p>"{feedbackItem.id}"</p> */}
+            <div key={feedbackItem.id} className="w-full sm:w-1/2 lg:w-1/3 p-4">
+              <p className="text-xl font-semibold">{feedbackItem.name}</p>
+              <h2 className="text-lg">{feedbackItem.feedback}</h2>
             </div>
           ))}
         </div>
