@@ -22,7 +22,7 @@ const FeedbackJ = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://http://white-emu-581912.hostingersite.com/api/user/register",
+        "http://white-emu-581912.hostingersite.com/api/user/register",
         formData,
         {
           headers: {

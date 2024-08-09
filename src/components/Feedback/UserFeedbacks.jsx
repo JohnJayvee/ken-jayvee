@@ -34,7 +34,7 @@ export default function UserFeedbacks() {
       <p className="h1 text-lg-center">USER FEEDBACK</p>
       <div className="container">
         <div className={`d-flex text-center mx-5`}>
-          {array.map((feedbackItem) => (
+          {array.slice(0, 6).map((feedbackItem) => (
             <div className={`col-lg my-5 g-5`}>
               {/* key={feedbackItem.id} */}
               <p className="h3">{feedbackItem.email}</p>
