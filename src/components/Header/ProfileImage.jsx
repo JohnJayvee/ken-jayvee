@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from "react";
+import {API_ENDPOINTS} from '../../BaseUrl'
 
 export default function ProfileImage() {
   const [array, setArray] = useState([]);
   const initialized = useRef(false);
 
+
+
   useEffect(() => {
     if (!initialized.current) {
       initialized.current = true;
       axios
-        .get("http://white-emu-581912.hostingersite.com/api/user/register", {
+        .get(API_ENDPOINTS.USER_REGISTER, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -35,7 +38,7 @@ export default function ProfileImage() {
         onClick={() => setLoadedProfile((prev) => !prev)}
       >
         {" "}
-        <img src={userIcon} style={{ height: "2rem" }} />{" "}
+        <img src={`${}`} style={{ height: "2rem" }} />{" "}
       </Button>
       {loadedProfile && <DropdownProfile />}
     </>

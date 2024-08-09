@@ -114,14 +114,15 @@ function Header() {
                 </Link>
               </li>
             </ul>
-            <Button
+            {/* TERNARY OPERATOR &  DETERMINE THE USER ELSE DEFAULT USER ICON */}
+            {/* <Button
               className="nav-link px-1 link-secondary"
               onClick={() => setLoadedProfile((prev) => !prev)}
             >
               {" "}
               <img src={userIcon} style={{ height: "2rem" }} />{" "}
             </Button>
-            {loadedProfile && <DropdownProfile />}
+            {loadedProfile && <DropdownProfile />} */}
           </div>
         </div>
       </header>
