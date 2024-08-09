@@ -17,8 +17,14 @@ export default function UserFeedbacks() {
         })
         .then((response) => {
           console.log("API Response:", response);
-          // Ensure the response data has a feedbacks array
-          if (response.data.success && Array.isArray(response.data.feedbacks)) {
+
+          // Guard clauses to check for response data and structure
+          if (
+            response &&
+            response.data &&
+            response.data.success &&
+            Array.isArray(response.data.feedbacks)
+          ) {
             setArray(response.data.feedbacks);
           } else {
             console.error("Unexpected response format:", response.data);
