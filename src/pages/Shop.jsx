@@ -3,6 +3,7 @@ import FoodItem from "../components/Food-Products/FoodItem";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import axios from "axios";
+import { API_ENDPOINTS } from "../BaseUrl";
 
 export default function Shop() {
   const [loadedItem, setLoadedItem] = useState([]);
@@ -13,7 +14,7 @@ export default function Shop() {
     if (!initialized.current) {
       initialized.current = true;
       axios
-        .get("http://white-emu-581912.hostingersite.com/api/products", {
+        .get(API_ENDPOINTS.FETCH_PRODUCTS, {
           headers: {
             "Content-Type": "application/json",
           },
