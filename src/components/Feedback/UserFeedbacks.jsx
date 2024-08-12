@@ -17,7 +17,7 @@ export default function UserFeedbacks() {
         })
         .then((response) => {
           console.log("API Response:", response);
-          // Ensure the response data has a feedbacks array
+          // Ensure the response data has a feedback array
           if (response.data.success && Array.isArray(response.data.feedbacks)) {
             setArray(response.data.feedbacks);
           } else {

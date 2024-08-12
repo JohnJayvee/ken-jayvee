@@ -12,6 +12,7 @@ export default function FoodItem({ foods }) {
     <li className="food-item">
       <div className="item-card">
         <img
+          key={foods.id}
           src={`${API_ENDPOINTS.FETCH_IMAGE}/${foods.image}`}
           alt={foods.name}
         />

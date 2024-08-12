@@ -1,5 +1,5 @@
 import logoSVG from "./logo-transparent.png";
-import userIcon from "./user-login-icon-removebg-preview.png";
+// import userIcon from "./user-login-icon-removebg-preview.png";
 import cartIcon from "./Untitled_design-removebg-preview.png";
 import "./Header.css";
 import { Link } from "react-router-dom";
@@ -8,12 +8,11 @@ import { useContext, useState } from "react";
 import CartContext from "../../store/CartContext";
 import UserProgressContext from "../../store/UserProgressContext";
 import myOrderIcon from "./place-holder.png";
-import DropdownProfile from "./DropdownProfile";
+import ProfileImage from "./ProfileImage";
 
 function Header() {
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
-  const [loadedProfile, setLoadedProfile] = useState(false);
 
   const totalCartItems = cartCtx.items.reduce((totalItems, item) => {
     return totalItems + item.quantity;
@@ -112,6 +111,9 @@ function Header() {
                 <Link to="/register" className="nav-link px-2 link-secondary">
                   Sign Up
                 </Link>
+              </li>
+              <li>
+                <ProfileImage />
               </li>
             </ul>
             {/* TERNARY OPERATOR &  DETERMINE THE USER ELSE DEFAULT USER ICON */}
