@@ -1,5 +1,3 @@
-import Footer from "../components/Footer/Footer";
-import Header from "../components/Header/Header";
 import Button from "../components/UI/Button";
 import Input from "../components/UI/InputBlock";
 import { Link } from "react-router-dom";
@@ -45,8 +43,9 @@ export default function LoginPage() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token") || sessionStorage.getItem("token")
-              }`,
+            Authorization: `Bearer ${
+              localStorage.getItem("token") || sessionStorage.getItem("token")
+            }`,
           },
         }
       );
@@ -79,7 +78,7 @@ export default function LoginPage() {
         } else {
           setGeneralError(
             error.response.data.message ||
-            "Something went wrong. Please try again."
+              "Something went wrong. Please try again."
           );
         }
       } else {
