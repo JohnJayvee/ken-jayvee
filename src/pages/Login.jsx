@@ -1,5 +1,3 @@
-import Footer from "../components/Footer/Footer";
-import Header from "../components/Header/Header";
 import Button from "../components/UI/Button";
 import Input from "../components/UI/InputBlock";
 import { Link } from "react-router-dom";
@@ -45,8 +43,9 @@ export default function LoginPage() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token") || sessionStorage.getItem("token")
-              }`,
+            Authorization: `Bearer ${
+              localStorage.getItem("token") || sessionStorage.getItem("token")
+            }`,
           },
         }
       );
@@ -79,7 +78,7 @@ export default function LoginPage() {
         } else {
           setGeneralError(
             error.response.data.message ||
-            "Something went wrong. Please try again."
+              "Something went wrong. Please try again."
           );
         }
       } else {
@@ -95,8 +94,6 @@ export default function LoginPage() {
 
   return (
     <>
-      <Header />
-
       <div className="row bg-dark text-white py-5">
         <div className="col-md-4 d-flex align-items-md-center justify-content-md-center justify-content-sm-center">
           <p className="h2 ">Log In</p>
@@ -206,44 +203,6 @@ export default function LoginPage() {
           {/* <h2 className="d-flex align-items-center">PAWGO SHOP</h2> */}
         </div>
       </div>
-      <Footer className="stick-bottom" />
     </>
   );
 }
-
-// ken code
-//     function handleSubmit(event){
-//         event.preventDefault();
-
-//         // buil-in feature browser offer FormData onject
-//         const fd = new FormData(event.target);
-//         const customerData = Object.fromEntries(fd.entries()); // passing form data ENTRIES will RETURN then an object { email: test@example.com } a key : value pairs
-//         // also extract entered by the user into object e.g {full-name : 'ken mark amandoron'}
-//     }
-//     return(
-//         <>
-//         <Header />
-//         <div className="form-signup bg-dark">
-//             <div className="container row mx-auto">
-
-//         <form className="col col-md-6 py-5 text-light " onSubmit={handleSubmit}>
-//             <p className="h2 text-light">Log In</p>
-
-//             <Input type="email" name='login' id='email'  label='Email or Username'/>
-//             <Input type="password" name='password' id='password'  label='Password'/>
-
-//         <div className="d-grid col-md-6">
-//             <Button className="btn-warning" type="submit"> Login </Button>
-//             </div>
-//             <p className="">New to Pawgo Shop? <Link className="text-danger link-underline-dark" to='/register'>Sign Up</Link> </p>
-
-//         </form>
-//         <div className="col col-md-6 d-flex justify-content-center">
-//         <img src={logoSVG} style={{height:"20rem"}} />
-//         </div>
-//         </div>
-//         </div>
-//         <Footer />
-//         </>
-//     )
-// }

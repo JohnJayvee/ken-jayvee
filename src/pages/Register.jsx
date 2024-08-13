@@ -1,5 +1,3 @@
-import Footer from "../components/Footer/Footer";
-import Header from "../components/Header/Header";
 import Button from "../components/UI/Button";
 import Input from "../components/UI/InputBlock";
 import { Link } from "react-router-dom";
@@ -21,7 +19,6 @@ export default function Register() {
   }
   return (
     <>
-      <Header />
       <div className="form-signup bg-dark">
         <div className="row mx-auto">
           <p className="h2 text-light">Sign up</p>
@@ -79,7 +76,6 @@ export default function Register() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

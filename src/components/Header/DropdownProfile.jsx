@@ -32,8 +32,9 @@ export default function DropdownProfile() {
   return (
     <div className="d-flex custom-dropdown">
       <ul className="d-flex-col">
-        {array.slice(1, 1).map((dropItem) => {
-          <li className="h3">{dropItem.email}</li>;
+        <p>HELLO</p>
+        {array.slice(0, -2).map((dropItem) => {
+          <p className="h3">{dropItem.email}</p>;
         })}
 
         <Button
