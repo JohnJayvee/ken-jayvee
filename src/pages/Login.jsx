@@ -45,9 +45,8 @@ export default function LoginPage() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${
-              localStorage.getItem("token") || sessionStorage.getItem("token")
-            }`,
+            Authorization: `Bearer ${localStorage.getItem("token") || sessionStorage.getItem("token")
+              }`,
           },
         }
       );
@@ -80,7 +79,7 @@ export default function LoginPage() {
         } else {
           setGeneralError(
             error.response.data.message ||
-              "Something went wrong. Please try again."
+            "Something went wrong. Please try again."
           );
         }
       } else {
