@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import CartContext from "../../store/CartContext";
 import Button from "../UI/Button";
+import { API_ENDPOINTS } from "../../BaseUrl";
 
 export default function FoodItem({ foods }) {
   const cartCtx = useContext(CartContext);
@@ -11,7 +12,8 @@ export default function FoodItem({ foods }) {
     <li className="food-item">
       <div className="item-card">
         <img
-          src={`https://white-emu-581912.hostingersite.com/storage/${foods.image}`}
+          key={foods.id}
+          src={`${API_ENDPOINTS.FETCH_IMAGE}/${foods.image}`}
           alt={foods.name}
         />
         <div>

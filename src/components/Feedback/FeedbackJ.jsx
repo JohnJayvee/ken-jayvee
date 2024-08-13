@@ -9,8 +9,6 @@ const FeedbackJ = () => {
     name: "",
     email: "",
     username: "",
-    password: "",
-    password_confirmation: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -24,7 +22,7 @@ const FeedbackJ = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://kodegoapi.test/api/user/register",
+        "http://white-emu-581912.hostingersite.com/api/user/register",
         formData,
         {
           headers: {

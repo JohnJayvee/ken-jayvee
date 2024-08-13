@@ -1,3 +1,4 @@
+import { API_ENDPOINTS } from "../BaseUrl";
 import useAuth from "./auth";
 
 export default function CartItem({
@@ -14,10 +15,7 @@ export default function CartItem({
   }
   return (
     <li className="cart-item">
-      <img
-        src={`https://white-emu-581912.hostingersite.com/storage/${image}`}
-        alt={`${itemName}`}
-      />
+      <img src={`${API_ENDPOINTS.FETCH_IMAGE}/${image}`} alt={`${itemName}`} />
       <p>
         {itemName} - {quantity} x {`₱${price}`}
       </p>
