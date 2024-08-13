@@ -39,18 +39,15 @@ export default function ProfileImage() {
         className="nav-link px-1 link-secondary"
         onClick={() => setLoadedProfile((prev) => !prev)}
       >
-        {array.slice(1, 2).map((profileItem) => {
+        {array.slice(1, 1).map((profileItem) => {
           {
             <img
               key={profileItem.id}
               src={`http://white-emu-581912.hostingersite.com/${profileItem.image}`}
               style={{ height: "2rem" }}
             />;
-            {
-              (" ");
-            }
           }
-        })}
+        })}{" "}
       </Button>
       {loadedProfile && <DropdownProfile />}
     </>
