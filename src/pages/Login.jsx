@@ -40,14 +40,13 @@ export default function LoginPage() {
 
     try {
       const response = await axios.post(
-        "http://white-emu-581912.hostingersite.com/api/login",
+        "https://white-emu-581912.hostingersite.com/api/login",
         formData,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${
-              localStorage.getItem("token") || sessionStorage.getItem("token")
-            }`,
+            Authorization: `Bearer ${localStorage.getItem("token") || sessionStorage.getItem("token")
+              }`,
           },
         }
       );
@@ -80,7 +79,7 @@ export default function LoginPage() {
         } else {
           setGeneralError(
             error.response.data.message ||
-              "Something went wrong. Please try again."
+            "Something went wrong. Please try again."
           );
         }
       } else {
