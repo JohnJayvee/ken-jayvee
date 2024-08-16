@@ -13,7 +13,7 @@ const Cart = lazy(() => import("./components/Cart.jsx"));
 const Checkout = lazy(() => import("./components/Checkout.jsx"));
 const FeedbackPage = lazy(() => import("./pages/FeedbackPage.jsx"));
 const UserFeedbackPage = lazy(() => import("./pages/UserFeedbackPage.jsx"));
-const PlaceOrder = lazy(() => import("./pages/PlaceOrder.jsx"));
+const ProductList = lazy(() => import("./pages/ProductList.jsx"));
 
 const routes = [
   { path: "/", exact: true, title: "Home", element: <Home /> },
@@ -21,7 +21,7 @@ const routes = [
   { path: "/shop", exact: true, title: "Shop", element: <Shop /> },
   { path: "/aboutUs", title: "About", element: <AboutUs /> },
   { path: "/feedback", title: "Feedback", element: <FeedbackPage /> },
-  { path: "/placeOrder", title: "Feedback", element: <PlaceOrder /> },
+  { path: "/productList", title: "ProductList", element: <ProductList /> },
   { path: "/login", title: "Login", element: <LoginPage /> },
   { path: "/register", title: "Register", element: <Register /> },
   {

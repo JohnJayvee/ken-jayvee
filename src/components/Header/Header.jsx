@@ -103,24 +103,29 @@ function Header() {
                 {totalCartItems})
               </Button>
               <Button className="nav-link px-1 link-secondary">
-                <Link to="/placeorder" className="dropdown-item">
+                <Link to="/productList" className="dropdown-item">
                   <img src={myOrderIcon} style={{ height: "4rem" }} />
                 </Link>
               </Button>
             </div>{" "}
             <ul className="nav col-12 col-md-auto mb-2 mb-md-0 align-items-center">
-              <li>
-                <Link to="/login" className="nav-link px-2 link-secondary">
-                  Login
-                </Link>
-              </li>
-              <li>
-                {!isLoggedIn && (
-                  <Link to="/register" className="nav-link px-2 link-secondary">
-                    Sign Up
-                  </Link>
-                )}
-              </li>
+              {!isLoggedIn && (
+                <>
+                  <li>
+                    <Link to="/login" className="nav-link px-2 link-secondary">
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/register"
+                      className="nav-link px-2 link-secondary"
+                    >
+                      Sign Up
+                    </Link>
+                  </li>
+                </>
+              )}
               <li>
                 <ProfileImage />
               </li>

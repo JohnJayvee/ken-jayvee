@@ -1,14 +1,14 @@
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
-import PlaceOrderTable from "../components/PlaceOrder/PlaceOrderTable";
+import ProductListTable from "../components/ProductList/ProductListTable";
 
-const PlaceOrder = () => {
+const ProductList = () => {
   return (
     <>
       <Header />
-      <PlaceOrderTable />
+      <ProductListTable />
       <Footer />
     </>
   );
 };
-export default PlaceOrder;
+export default ProductList;
