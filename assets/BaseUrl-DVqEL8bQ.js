@@ -1,1 +1,0 @@
-const E="http://white-emu-581912.hostingersite.com",e={USER_REGISTER:`${E}/api/user/register`,FETCH_IMAGE:`${E}/storage`,FETCH_PRODUCTS:`${E}/api/products`,FETCH_FEEDBACKS:`${E}/api/feedbacks`,FETCH_USER:`${E}/api/users`};export{e as A};
