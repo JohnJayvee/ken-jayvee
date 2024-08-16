@@ -9,6 +9,7 @@ import CartContext from "../../store/CartContext";
 import UserProgressContext from "../../store/UserProgressContext";
 import myOrderIcon from "./place-holder.png";
 import ProfileImage from "./ProfileImage";
+import useAuth from "../auth";
 
 function Header() {
   const cartCtx = useContext(CartContext);
@@ -20,6 +21,10 @@ function Header() {
 
   function handleShowCart() {
     userProgressCtx.showCart();
+  }
+  const isLoggedIn = useAuth();
+  if (!isLoggedIn) {
+    return null;
   }
 
   return (
@@ -108,9 +113,11 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link to="/register" className="nav-link px-2 link-secondary">
-                  Sign Up
-                </Link>
+                {!isLoggedIn && (
+                  <Link to="/register" className="nav-link px-2 link-secondary">
+                    Sign Up
+                  </Link>
+                )}
               </li>
               <li>
                 <ProfileImage />

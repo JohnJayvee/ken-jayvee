@@ -60,17 +60,6 @@ function App() {
         <Checkout />
         <Suspense>{element}</Suspense>
 
-        {/* <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Pawgo-Service-React2" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/aboutUs" element={<AboutUs />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/feedback" element={<FeedbackPage />} />
-          <Route path="/userfeedback" element={<UserFeedbackPage />} />
-        </Routes> */}
         <GoTop />
       </CartContextProvider>
     </UserProgressContextProvider>
