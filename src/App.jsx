@@ -3,16 +3,6 @@ import { useRoutes, useLocation } from "react-router-dom";
 import { CartContextProvider } from "./store/CartContext.jsx";
 import { UserProgressContextProvider } from "./store/UserProgressContext.jsx";
 import GoTop from "./components/GoTopButton/GoTop.jsx";
-// import Home from './pages/Home.jsx';
-// import Shop from "../src/pages/Shop.jsx";
-// import AboutUs from "../src/pages/AboutUs.jsx";
-// import LoginPage from '../src/pages/Login.jsx';
-// import Cart from "./components/Cart.jsx";
-// import Checkout from "./components/Checkout.jsx";
-// import Register from "./pages/Register.jsx";
-// import FeedbackForm from './components/Feedback/FeedbackForm.jsx';
-// import FeedbackPage from "./pages/FeedbackPage.jsx";
-// import UserFeedbackPage from "./pages/UserFeedbackPage.jsx";
 
 const LoginPage = lazy(() => import("../src/pages/Login.jsx"));
 const Register = lazy(() => import("./pages/Register.jsx"));
@@ -23,6 +13,7 @@ const Cart = lazy(() => import("./components/Cart.jsx"));
 const Checkout = lazy(() => import("./components/Checkout.jsx"));
 const FeedbackPage = lazy(() => import("./pages/FeedbackPage.jsx"));
 const UserFeedbackPage = lazy(() => import("./pages/UserFeedbackPage.jsx"));
+const PlaceOrder = lazy(() => import("./pages/PlaceOrder.jsx"));
 
 const routes = [
   { path: "/", exact: true, title: "Home", element: <Home /> },
@@ -30,6 +21,7 @@ const routes = [
   { path: "/shop", exact: true, title: "Shop", element: <Shop /> },
   { path: "/aboutUs", title: "About", element: <AboutUs /> },
   { path: "/feedback", title: "Feedback", element: <FeedbackPage /> },
+  { path: "/placeOrder", title: "Feedback", element: <PlaceOrder /> },
   { path: "/login", title: "Login", element: <LoginPage /> },
   { path: "/register", title: "Register", element: <Register /> },
   {

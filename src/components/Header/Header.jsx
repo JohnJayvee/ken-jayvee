@@ -103,7 +103,9 @@ function Header() {
                 {totalCartItems})
               </Button>
               <Button className="nav-link px-1 link-secondary">
-                <img src={myOrderIcon} style={{ height: "4rem" }} />
+                <Link to="/placeorder" className="dropdown-item">
+                  <img src={myOrderIcon} style={{ height: "4rem" }} />
+                </Link>
               </Button>
             </div>{" "}
             <ul className="nav col-12 col-md-auto mb-2 mb-md-0 align-items-center">
