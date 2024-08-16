@@ -3,6 +3,7 @@ import { API_ENDPOINTS } from "../../BaseUrl";
 import Button from "../UI/Button";
 import axios from "axios";
 import DropdownProfile from "./DropdownProfile";
+import useAuth from "../auth";
 
 export default function ProfileImage() {
   const [array, setArray] = useState([]);
@@ -32,20 +33,26 @@ export default function ProfileImage() {
         });
     }
   }, []);
+  const isLoggedIn = useAuth();
+  if (!isLoggedIn) {
+    return null;
+  }
 
   return (
     <>
       <Button
-        className="nav-link px-1 link-secondary"
+        className="nav-link px-1 link-secondary me-2"
         onClick={() => setLoadedProfile((prev) => !prev)}
       >
-        {array.slice(1, 1).map((profileItem) => {
+        {array.slice(0, 1).map((profileItem) => {
           {
-            <img
-              key={profileItem.id}
-              src={`http://white-emu-581912.hostingersite.com/${profileItem.image}`}
-              style={{ height: "2rem" }}
-            />;
+            {
+              <img
+                key={profileItem.id}
+                src={`http://white-emu-581912.hostingersite.com/${profileItem.image}`}
+                style={{ height: "2rem" }}
+              />;
+            }
           }
         })}{" "}
       </Button>
