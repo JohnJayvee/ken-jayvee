@@ -2,7 +2,6 @@ import Button from "../components/UI/Button";
 import Input from "../components/UI/InputBlock";
 import { Link } from "react-router-dom";
 import logoSVG from "./logo-transparent.png";
-import useAuth from "../components/auth";
 
 export default function Register() {
   function handleSubmit(event) {
@@ -13,10 +12,7 @@ export default function Register() {
     const customerData = Object.fromEntries(fd.entries()); // passing form data ENTRIES will RETURN then an object { email: test@example.com } a key : value pairs
     // also extract entered by the user into object e.g {full-name : 'ken mark amandoron'}
   }
-  const isLoggedIn = useAuth();
-  if (!isLoggedIn) {
-    return null;
-  }
+
   return (
     <>
       <div className="form-signup bg-dark">
