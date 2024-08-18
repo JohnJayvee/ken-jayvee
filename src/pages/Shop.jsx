@@ -57,11 +57,18 @@ export default function Shop() {
       <p className="h1 text-center">Shop</p>
       <div className="container-fluid">
         <ul className="row h-50" id="items">
-          {loadedItem.products.map((items) => (
-            <div className="col col-lg-3 col-md-4 my-2 justify-content-sm-center">
-              <FoodItem key={items.id} foods={items} />
-            </div>
-          ))}
+          {/* 1. Modify the useHttp hook to return the full response object instead of extracting and returning just the products array.
+        2. In the Shop component, use the dot notation to access the products array from the loadedItem object. */}
+          {loadedItem &&
+            loadedItem.products &&
+            loadedItem.products.map((items) => (
+              <div
+                className="col col-lg-3 col-md-4 my-2 justify-content-sm-center"
+                key={items.id}
+              >
+                <FoodItem key={items.id} foods={items} />
+              </div>
+            ))}
         </ul>
       </div>
 
