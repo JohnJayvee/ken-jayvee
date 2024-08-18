@@ -23,7 +23,7 @@ const useHttp = (url, config, initialData) => {
       setIsLoading(true);
       try {
         const resData = await sendHttpRequest(url, config);
-        setData(resData);
+        setData(resData.products);
       } catch {
         setError(error.message || "Something went wrong!");
       }
