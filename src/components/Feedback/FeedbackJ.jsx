@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import Input from "../UI/InputBlock";
 import Button from "../UI/Button";
-import contactImage from "./contact_pet.png";
 
 const FeedbackJ = () => {
   const [formData, setFormData] = useState({
@@ -145,8 +144,6 @@ const FeedbackJ = () => {
           </div>
         </div>
       </div>
-      {/* Divider */}
-      <hr className="border-gray-300" />
     </div>
   );
 };

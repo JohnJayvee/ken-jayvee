@@ -5,7 +5,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #FAFAFA;
 }
+.custom-navbar{
+  background-color: #E5890A;
+}
+.custom-footer{
+  background-color: #E5890A;
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -22,7 +30,7 @@ code {
   gap: 1rem;
 }
 .food-item {
-  background-color: #7F6843;
+  background-color: #543310;
   border-radius: 1rem;
   overflow: hidden;
   text-align: center;

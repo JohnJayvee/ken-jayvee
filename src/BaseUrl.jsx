@@ -6,4 +6,5 @@ export const API_ENDPOINTS = {
   FETCH_PRODUCTS: `${BASE_URL}/api/products`,
   FETCH_FEEDBACKS: `${BASE_URL}/api/feedbacks`,
   FETCH_USER: `${BASE_URL}/api/users`,
+  POST_PRODUCTS: `${BASE_URL}/api/order/create`,
 };
