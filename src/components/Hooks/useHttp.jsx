@@ -19,10 +19,10 @@ const useHttp = (url, config, initialData) => {
   const [error, setError] = useState();
 
   const sendRequest = useCallback(
-    async function sendRequest() {
+    async function sendRequest(data) {
       setIsLoading(true); // start fetching
       try {
-        const resData = await sendHttpRequest(url, config);
+        const resData = await sendHttpRequest(url, { ...config, body: data });
         setData(resData);
       } catch {
         setError(error.message || "Something went wrong!");

@@ -5,10 +5,26 @@ import Modal from "./UI/Modal";
 import Input from "./UI/InputBlock";
 import Button from "./UI/Button";
 import axios from "axios";
+import useHttp from "./Hooks/useHttp";
+import { API_ENDPOINTS } from "../BaseUrl";
 
+// define outside to avoid infinite loops of recreating an objects
+const requestConfig = {
+  method: "POST",
+  headers: {
+    "Content-type": "application/json",
+  },
+};
 export default function Checkout() {
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
+
+  const {
+    data,
+    isLoading: isSending,
+    error,
+    sendRequest,
+  } = useHttp(API_ENDPOINTS.POST_PRODUCTS, requestConfig);
 
   const cartTotal = cartCtx.items.reduce(
     (totalPrice, item) => totalPrice + item.quantity * item.price,
@@ -18,51 +34,36 @@ export default function Checkout() {
   const handleSubmit = async (e) => {
     const fd = new FormData(e.target);
     const customerData = Object.fromEntries(fd.entries()); // passing form data ENTRIES will RETURN then an object { email: test@example.com } a key : value pairs
-    e.preventDefault();
-    alert("order submitted!");
-    // try {
-    const response = await axios.post(
-      "http://white-emu-581912.hostingersite.com/api/order/create",
-      formData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+
+    sendRequest(
+      JSON.stringify({
+        order: {
           order: {
-            order: {
-              items: cartCtx,
-              customer: customerData,
-            },
+            items: cartCtx,
+            customer: customerData,
           },
-        }),
-      }
+        },
+      })
     );
-    //     if (response.status === 200 || response.status === 201) {
-    //       alert("Place Order Successfully!");
-    //       console.log(response);
-    //       setFormData({ firstName: "",
-    //           lastName: "",
-    //           email: "",
-    //           address: "",
-    //           paymentMethod: "" });
-    //       setErrors({});
-    //     } else {
-    //       alert("Failed to submit order.");
-    //     }
-    //   }
-    //   catch (error) {
-    //     if (error.response && error.response.status === 422) {
-    //       const apiErrors = error.response.data.errors || {};
-    //       setErrors(apiErrors);
-    //       alert("Validation error. Please check the fields.");
-    //       console.log(error.response);
-    //     } else {
-    //       alert("Failed to submit order.");
-    //     }
-    //   }
-    // };
   };
+  console.log(data);
+
+  let actions = (
+    <>
+      <Button
+        className="btn-outline-danger"
+        type="button"
+        onClick={() => userProgressCtx.hideCheckout()}
+      >
+        Close
+      </Button>
+      <Button className="btn-dark mx-3">Submit Order</Button>
+    </>
+  );
+  if (isSending) {
+    actions = <span>Sending order data...</span>;
+  }
+
   return (
     <Modal open={userProgressCtx.progress === "checkout"}>
       <form onSubmit={handleSubmit}>
@@ -86,19 +87,57 @@ export default function Checkout() {
           </label>
         </div>
         <ul className="checkout-button ">
-          <Button
-            className="btn-outline-danger"
-            type="button"
-            onClick={() => userProgressCtx.hideCheckout()}
-          >
-            Close
-          </Button>
-          <Button className="btn-dark mx-3">Submit Order</Button>
+          <p className="modal-actions">{actions}</p>
         </ul>
       </form>
     </Modal>
   );
 }
+
+//////////////////////////////////////////////////////////////////////////////////////
+// BEFORE : using AXIOS
+// try {
+// const response = await axios.post(
+//   "http://white-emu-581912.hostingersite.com/api/order/create",
+//   formData,
+//   {
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       order: {
+//         order: {
+//           items: cartCtx,
+//           customer: customerData,
+//         },
+//       },
+//     }),
+//   }
+// );
+//     if (response.status === 200 || response.status === 201) {
+//       alert("Place Order Successfully!");
+//       console.log(response);
+//       setFormData({ firstName: "",
+//           lastName: "",
+//           email: "",
+//           address: "",
+//           paymentMethod: "" });
+//       setErrors({});
+//     } else {
+//       alert("Failed to submit order.");
+//     }
+//   }
+//   catch (error) {
+//     if (error.response && error.response.status === 422) {
+//       const apiErrors = error.response.data.errors || {};
+//       setErrors(apiErrors);
+//       alert("Validation error. Please check the fields.");
+//       console.log(error.response);
+//     } else {
+//       alert("Failed to submit order.");
+//     }
+//   }
+// };
 
 //  function handleSubmit(event){
 //     event.preventDefault();
