@@ -54,19 +54,19 @@ function Header() {
           className="navbar-collapse collapse justify-content-md-end"
           id="navbarCollapse"
         >
-          <ul className="navbar-nav col-3 col-md-6 mb-2 mb-md-0">
+          <ul className="navbar-nav col-3 col-md-6 mb-2 mb-md-0 custom-navbar-nav">
             <li>
-              <Link to="/home" className="nav-link px-2 link-secondary">
+              <Link to="/home" className="nav-link px-2 ">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/shop" className="nav-link px-2 link-secondary">
+              <Link to="/shop" className="nav-link px-2">
                 Shop
               </Link>
             </li>
             <li>
-              <Link to="/aboutUs" className="nav-link px-2 link-secondary">
+              <Link to="/aboutUs" className="nav-link px-2">
                 About
               </Link>
             </li>
