@@ -4,15 +4,15 @@ import UserProgressContext from "../store/UserProgressContext";
 import Modal from "./UI/Modal";
 import Input from "./UI/InputBlock";
 import Button from "./UI/Button";
-import axios from "axios";
 import useHttp from "./Hooks/useHttp";
 import { API_ENDPOINTS } from "../BaseUrl";
+import Error from "./Error";
 
 // define outside to avoid infinite loops of recreating an objects
 const requestConfig = {
   method: "POST",
   headers: {
-    "Content-type": "application/json",
+    "Content-Type": "application/json",
   },
 };
 export default function Checkout() {
@@ -21,7 +21,7 @@ export default function Checkout() {
 
   const {
     data,
-    isLoading: isSending,
+    isLoading: isSending, //alias for sending pre-loader
     error,
     sendRequest,
   } = useHttp(API_ENDPOINTS.POST_PRODUCTS, requestConfig);
@@ -32,26 +32,24 @@ export default function Checkout() {
   );
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     const fd = new FormData(e.target);
     const customerData = Object.fromEntries(fd.entries()); // passing form data ENTRIES will RETURN then an object { email: test@example.com } a key : value pairs
 
-    sendRequest(
-      JSON.stringify({
-        order: {
-          order: {
-            items: cartCtx,
-            customer: customerData,
-          },
-        },
-      })
-    );
+    const orderData = {
+      order: {
+        items: cartCtx,
+        customer: customerData,
+      },
+    };
+    //will be passed to the Data parameter in useHttp and passed again for the BODY
+    sendRequest(JSON.stringify({ orderData }));
   };
-  console.log(data);
 
   let actions = (
     <>
       <Button
-        className="btn-outline-danger"
+        className="btn-danger"
         type="button"
         onClick={() => userProgressCtx.hideCheckout()}
       >
@@ -63,13 +61,27 @@ export default function Checkout() {
   if (isSending) {
     actions = <span>Sending order data...</span>;
   }
-
+  if (data && !error) {
+    return (
+      <Modal
+        open={userProgressCtx.progress === "checkout"}
+        onClose={handleClose}
+      >
+        <p className="h2"> Success! </p>
+        <p className="h3 text-dark">Order was submitted successfully</p>
+        <div className="modal-actions">
+          <Button className="btn-dark" onClick={handleClose}>
+            Okay
+          </Button>
+        </div>
+      </Modal>
+    );
+  }
   return (
     <Modal open={userProgressCtx.progress === "checkout"}>
       <form onSubmit={handleSubmit}>
         <h2>Checkout</h2>
         <p className="h2">total Amount{` : ₱${cartTotal}`}</p>
-
         {/*input fullName OR be set dynamically from user login e.g{user.name}*/}
         <Input label="First Name" type="text" id="firstName" />
         <Input label="Last Name" type="text" id="lastName" />
@@ -79,13 +91,18 @@ export default function Checkout() {
           <label className="h5 mt-2 ">
             Payment method
             <select name="payment-method">
-              <option value="cash">Cash</option>
-              <option value="online payment">
+              <option value="cash" id="paymentMethod">
+                Cash
+              </option>
+              <option value="online payment" id="paymentMethod">
                 Online payment (not available)
               </option>
             </select>
           </label>
         </div>
+        {error && (
+          <Error title={"Failed to Submit Order"} message={error.orders} />
+        )}
         <ul className="checkout-button ">
           <p className="modal-actions">{actions}</p>
         </ul>

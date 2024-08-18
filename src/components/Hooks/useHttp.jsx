@@ -25,7 +25,7 @@ const useHttp = (url, config, initialData) => {
         const resData = await sendHttpRequest(url, { ...config, body: data });
         setData(resData);
       } catch {
-        setError(error.message || "Something went wrong!");
+        setError(error || "Something went wrong!");
       }
       setIsLoading(false); //end the request after
     },
