@@ -20,11 +20,11 @@ export default function FoodItem({ foods }) {
           <h3>{foods.name}</h3>
 
           <p className="food-item-description">
-            {foods.description.substring(0, 60)}
+            {`- ${foods.description.substring(0, 60)} -`}
           </p>
         </div>
 
-        <div className="food-item-actions d-flex justify-content-around">
+        <div className="food-item-actions row g-2 mx-3">
           <dt className="food-item-price">₱{foods.price}</dt>
           <Button className="btn-outline-light" onClick={handleAddFoodToCart}>
             Add to Cart
