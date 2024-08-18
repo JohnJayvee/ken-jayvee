@@ -47,9 +47,9 @@ export default function Shop() {
     return <p>Fetching meals...</p>;
   }
 
-  // if (error) {
-  //   return <Error title="Failed to fetch Meals" message={error} />; //since I'm setting the error state to the error message(useHttp.jsx).
-  // }
+  if (error) {
+    return <Error title="Failed to fetch Meals" message={error.products} />; //since I'm setting the error state to the error message(useHttp.jsx).
+  }
 
   return (
     <>
@@ -57,7 +57,7 @@ export default function Shop() {
       <p className="h1 text-center">Shop</p>
       <div className="container-fluid">
         <ul className="row h-50" id="items">
-          {loadedItem.map((items) => (
+          {loadedItem.products.map((items) => (
             <div className="col col-lg-3 col-md-4 my-2 justify-content-sm-center">
               <FoodItem key={items.id} foods={items} />
             </div>
