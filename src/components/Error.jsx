@@ -1,9 +1,11 @@
-const Error = (title, message) => {
+const Error = ({ title, message }) => {
   return (
-    <div className="error text-danger">
-      <h2>{title}</h2>
-      <p>{message}</p>
-    </div>
+    <>
+      <div className="error text-danger">
+        <p className="h2">{title}</p>
+        <p className="h3">{message}</p>
+      </div>
+    </>
   );
 };
 

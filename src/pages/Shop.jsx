@@ -16,11 +16,13 @@ export default function Shop() {
   } = useHttp(API_ENDPOINTS.FETCH_PRODUCTS, requestConfig, []);
 
   if (isLoading) {
-    return <p>Fetching meals...</p>;
+    return <p className="h2">Fetching meals...</p>;
   }
 
   if (error) {
-    return <Error title="Failed to fetch Meals" message={error.products} />; //since I'm setting the error state to the error message(useHttp.jsx).
+    return (
+      <Error title="Failed to fetch Meals" message={error && error.success} />
+    ); //since I'm setting the error state to the error message(useHttp.jsx).
   }
 
   return (

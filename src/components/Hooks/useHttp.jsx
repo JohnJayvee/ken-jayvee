@@ -20,7 +20,7 @@ const useHttp = (url, config, initialData) => {
 
   const sendRequest = useCallback(
     async function sendRequest() {
-      setIsLoading(true);
+      setIsLoading(true); // start fetching
       try {
         const resData = await sendHttpRequest(url, config);
         setData(resData);
