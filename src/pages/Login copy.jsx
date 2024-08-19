@@ -43,8 +43,9 @@ export default function LoginPage() {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token") || sessionStorage.getItem("token")
-              }`,
+            Authorization: `Bearer ${
+              localStorage.getItem("token") || sessionStorage.getItem("token")
+            }`,
           },
         }
       );
@@ -77,7 +78,7 @@ export default function LoginPage() {
         } else {
           setGeneralError(
             error.response.data.message ||
-            "Something went wrong. Please try again."
+              "Something went wrong. Please try again."
           );
         }
       } else {
@@ -187,9 +188,6 @@ export default function LoginPage() {
                     Sign Up
                   </Link>{" "}
                 </p>
-                {/* <a href='#' className=''>
-                    Forgot your password?
-                  </a> */}
               </div>
               <div className="row col-md-11  ">
                 <Button className="btn-warning">Login</Button>

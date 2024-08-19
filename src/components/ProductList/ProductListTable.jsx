@@ -1,6 +1,6 @@
 import Button from "../UI/Button";
 
-const ProductListTable = () => {
+const ProductListTable = ({ orders }) => {
   return (
     <>
       <div className="table-responsive small">
@@ -17,13 +17,16 @@ const ProductListTable = () => {
           </thead>
           <tbody>
             <tr>
-              <td>1,001</td>
+              <td>{orders.id}</td>
               <td>
-                <img src="" alt="" />
-                image1
+                <img
+                  key={foods.id}
+                  src={`${API_ENDPOINTS.FETCH_IMAGE}/${orders.image}`}
+                  alt={orders.productName}
+                />
               </td>
-              <td>data</td>
-              <td>placeholder</td>
+              <td>{orders.productName}</td>
+              <td>{cartTotal}</td>
               <td>text</td>
               <td className="row me-2">
                 <Button className="btn-dark col-lg-4 me-3">Edit</Button>

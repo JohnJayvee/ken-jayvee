@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import logoSVG from "./logo-transparent.png";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     rememberMe: false,
   });
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [loginError, setLoginError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [generalError, setGeneralError] = useState('');
+  const [loginError, setLoginError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [generalError, setGeneralError] = useState("");
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -32,31 +32,31 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoginError('');
-    setPasswordError('');
-    setGeneralError('');
+    setLoginError("");
+    setPasswordError("");
+    setGeneralError("");
 
     try {
       const response = await axios.post(
-        'http://white-emu-581912.hostingersite.com/api/login',
+        "http://white-emu-581912.hostingersite.com/api/login",
         {
           login: formData.email,
           password: formData.password,
         },
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
 
       if (response.data.token) {
         if (formData.rememberMe) {
-          localStorage.setItem('token', response.data.token);
+          localStorage.setItem("token", response.data.token);
         } else {
-          sessionStorage.setItem('token', response.data.token);
+          sessionStorage.setItem("token", response.data.token);
         }
-        navigate('/home'); // Redirect to the home page after login
+        navigate("/home"); // Redirect to the home page after login
       }
     } catch (error) {
       if (error.response) {
@@ -71,11 +71,11 @@ const LoginForm = () => {
         } else {
           setGeneralError(
             error.response.data.message ||
-            'Something went wrong. Please try again.'
+              "Something went wrong. Please try again."
           );
         }
       } else {
-        setGeneralError('Network error. Please try again later.');
+        setGeneralError("Network error. Please try again later.");
       }
     }
   };
@@ -87,13 +87,19 @@ const LoginForm = () => {
           <div className="card shadow-sm">
             <div className="card-body">
               <div className="text-center mb-4">
-                <img src={logoSVG} alt="Logo" style={{ maxWidth: '150px' }} />
+                <img src={logoSVG} alt="Logo" style={{ maxWidth: "150px" }} />
               </div>
               <h3 className="text-center mb-4">Login</h3>
-              {generalError && <div className="text-center text-danger mb-3">{generalError}</div>}
+              {generalError && (
+                <div className="text-center text-danger mb-3">
+                  {generalError}
+                </div>
+              )}
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Email address</label>
+                  <label htmlFor="email" className="form-label">
+                    Email address
+                  </label>
                   <input
                     type="text"
                     className="form-control"
@@ -104,10 +110,14 @@ const LoginForm = () => {
                     placeholder="Enter your email"
                     required
                   />
-                  {loginError && <div className="text-danger">{loginError}</div>}
+                  {loginError && (
+                    <div className="text-danger">{loginError}</div>
+                  )}
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="password" className="form-label">Password</label>
+                  <label htmlFor="password" className="form-label">
+                    Password
+                  </label>
                   <div className="input-group">
                     <input
                       type={passwordVisible ? "text" : "password"}
@@ -124,10 +134,14 @@ const LoginForm = () => {
                       className="btn btn-outline-secondary"
                       onClick={togglePasswordVisibility}
                     >
-                      <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
+                      <FontAwesomeIcon
+                        icon={passwordVisible ? faEyeSlash : faEye}
+                      />
                     </button>
                   </div>
-                  {passwordError && <div className="text-danger">{passwordError}</div>}
+                  {passwordError && (
+                    <div className="text-danger">{passwordError}</div>
+                  )}
                 </div>
                 <div className="mb-3 form-check">
                   <input
@@ -137,9 +151,24 @@ const LoginForm = () => {
                     checked={formData.rememberMe}
                     onChange={handleRememberMeChange}
                   />
-                  <label className="form-check-label" htmlFor="rememberMe">Remember Me</label>
+                  <label className="form-check-label" htmlFor="rememberMe">
+                    Remember Me
+                  </label>
                 </div>
-                <button type="submit" className="btn btn-primary w-100">Login</button>
+                <button type="submit" className="btn btn-dark w-100">
+                  Login
+                </button>
+                <div className="text-sm mt-2">
+                  <p className="h6">
+                    New to Pawgo Shop?{" "}
+                    <Link
+                      className="text-danger link-underline-light"
+                      to="/register"
+                    >
+                      Sign Up
+                    </Link>{" "}
+                  </p>
+                </div>
               </form>
             </div>
           </div>
