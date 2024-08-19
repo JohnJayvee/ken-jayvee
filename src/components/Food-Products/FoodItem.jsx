@@ -13,7 +13,7 @@ export default function FoodItem({ foods }) {
       <div className="">
         <div className="item-card ">
           <img
-            className="object-fit-lg-contain object-fit-md-contain mt-md-2 object-fit-sm-contain h-auto p-lg-2"
+            className="rounded object-fit-lg-contain object-fit-md-contain mt-md-2 object-fit-sm-contain h-auto p-lg-2 p-md-2"
             key={foods.id}
             src={`${API_ENDPOINTS.FETCH_IMAGE}/${foods.image}`}
             alt={foods.name}
