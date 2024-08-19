@@ -1,71 +1,64 @@
-import Button from "../components/UI/Button";
-import Input from "../components/UI/InputBlock";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import logoSVG from "./logo-transparent.png";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-export default function LoginPage() {
+const LoginForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    login: "",
-    password: "",
+    email: '',
+    password: '',
     rememberMe: false,
-    showPassword: false,
   });
-  const [loginError, setLoginError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [generalError, setGeneralError] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [generalError, setGeneralError] = useState('');
 
-  useEffect(() => {
-    const token =
-      localStorage.getItem("token") || sessionStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-      navigate("/home", { replace: true }); // Redirect to dashboard if token exists
-    }
-  }, [navigate]);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+  const handleRememberMeChange = () => {
+    setFormData({ ...formData, rememberMe: !formData.rememberMe });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoginError("");
-    setPasswordError("");
-    setGeneralError("");
+    setLoginError('');
+    setPasswordError('');
+    setGeneralError('');
 
     try {
       const response = await axios.post(
-        "http://white-emu-581912.hostingersite.com/api/login",
-        formData,
+        'http://white-emu-581912.hostingersite.com/api/login',
+        {
+          login: formData.email,
+          password: formData.password,
+        },
         {
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${
-              localStorage.getItem("token") || sessionStorage.getItem("token")
-            }`,
+            'Content-Type': 'application/json',
           },
         }
       );
 
-      console.log("Login successful", response);
-
       if (response.data.token) {
-        // Store token based on rememberMe flag
         if (formData.rememberMe) {
-          localStorage.setItem("token", response.data.token);
+          localStorage.setItem('token', response.data.token);
         } else {
-          sessionStorage.setItem("token", response.data.token);
+          sessionStorage.setItem('token', response.data.token);
         }
-        setIsLoggedIn(true); // Update login status
-        navigate("/home", { replace: true }); // Redirect to home page
+        navigate('/home'); // Redirect to the home page after login
       }
     } catch (error) {
-      console.error("Login error", error);
-      console.log(error.response);
-
       if (error.response) {
         const errors = error.response.data.errors;
         if (errors) {
@@ -78,131 +71,82 @@ export default function LoginPage() {
         } else {
           setGeneralError(
             error.response.data.message ||
-              "Something went wrong. Please try again."
+            'Something went wrong. Please try again.'
           );
         }
       } else {
-        setGeneralError("Network error. Please try again later.");
+        setGeneralError('Network error. Please try again later.');
       }
     }
   };
 
-  //! Redirect to home if already logged in
-  if (isLoggedIn) {
-    return null; // Or any loading indicator while redirecting
-  }
-
   return (
-    <>
-      <div className="row bg-dark text-white py-5">
-        <div className="col-md-4 d-flex align-items-md-center justify-content-md-center justify-content-sm-center">
-          <p className="h2 ">Log In</p>
-        </div>
-        <div className="col-md-4">
-          <div className="">
-            {generalError && (
-              <p className="text-danger bs-danger">{generalError}</p>
-            )}
-          </div>
-          <div className="d-flex justify-content-end">
-            <form className="row" onSubmit={handleSubmit}>
-              <div className="col-md">
-                <Input
-                  id="email"
-                  name="login"
-                  autoComplete="email"
-                  value={formData.login}
-                  onChange={(e) =>
-                    setFormData({ ...formData, login: e.target.value })
-                  }
-                  label="Username or Email"
-                />
-                {loginError && <p className=" text-sm ">{loginError}</p>}
+    <div className="container">
+      <div className="row justify-content-center align-items-center min-vh-100">
+        <div className="col-12 col-md-6 col-lg-4">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <div className="text-center mb-4">
+                <img src={logoSVG} alt="Logo" style={{ maxWidth: '150px' }} />
               </div>
-
-              <div className="row">
-                <div className="col-md-9">
-                  <Input
-                    id="password"
-                    name="password"
-                    type={formData.showPassword ? "text" : "password"}
-                    autoComplete="current-password"
-                    value={formData.password}
-                    onChange={(e) =>
-                      setFormData({ ...formData, password: e.target.value })
-                    }
-                    label="Password"
-                  />
-                </div>
-
-                <div className="col-md-auto d-flex align-items-md-center pt-5">
-                  <span
-                    onClick={() =>
-                      setFormData({
-                        ...formData,
-                        showPassword: !formData.showPassword,
-                      })
-                    }
-                  >
-                    {formData.showPassword ? (
-                      <FontAwesomeIcon
-                        icon={faEyeSlash}
-                        className="btn btn-outline-light fa-l"
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faEye}
-                        className="btn btn-outline-light fa-l"
-                      />
-                    )}
-                  </span>
-                </div>
-              </div>
-
-              <div className="row justify-content-md-start">
-                {passwordError && (
-                  <p className="text-danger">{passwordError}</p>
-                )}
-
-                <div className="col-md-auto">
+              <h3 className="text-center mb-4">Login</h3>
+              {generalError && <div className="text-center text-danger mb-3">{generalError}</div>}
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">Email address</label>
                   <input
-                    id="remember-me"
-                    name="rememberMe"
-                    type="checkbox"
-                    checked={formData.rememberMe}
-                    onChange={(e) =>
-                      setFormData({ ...formData, rememberMe: e.target.checked })
-                    }
-                    className="m-1"
+                    type="text"
+                    className="form-control"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="Enter your email"
+                    required
                   />
-                  <label htmlFor="remember-me"> Remember me</label>
+                  {loginError && <div className="text-danger">{loginError}</div>}
                 </div>
-              </div>
-              <div className="text-sm">
-                <p className="">
-                  New to Pawgo Shop?{" "}
-                  <Link
-                    className="text-danger link-underline-dark"
-                    to="/register"
-                  >
-                    Sign Up
-                  </Link>{" "}
-                </p>
-                {/* <a href='#' className=''>
-                    Forgot your password?
-                  </a> */}
-              </div>
-              <div className="row col-md-11  ">
-                <Button className="btn-warning">Login</Button>
-              </div>
-            </form>
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">Password</label>
+                  <div className="input-group">
+                    <input
+                      type={passwordVisible ? "text" : "password"}
+                      className="form-control"
+                      id="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      placeholder="Enter your password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-outline-secondary"
+                      onClick={togglePasswordVisibility}
+                    >
+                      <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
+                    </button>
+                  </div>
+                  {passwordError && <div className="text-danger">{passwordError}</div>}
+                </div>
+                <div className="mb-3 form-check">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="rememberMe"
+                    checked={formData.rememberMe}
+                    onChange={handleRememberMeChange}
+                  />
+                  <label className="form-check-label" htmlFor="rememberMe">Remember Me</label>
+                </div>
+                <button type="submit" className="btn btn-primary w-100">Login</button>
+              </form>
+            </div>
           </div>
-        </div>
-        <div className="col col-md-4 d-flex justify-content-md-start justify-content-sm-center align-items-md-center">
-          <img src={logoSVG} style={{ height: "15rem" }} alt="logo" />
-          {/* <h2 className="d-flex align-items-center">PAWGO SHOP</h2> */}
         </div>
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default LoginForm;
