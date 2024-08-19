@@ -2,10 +2,13 @@ import Button from "../components/UI/Button";
 import Input from "../components/UI/InputBlock";
 import { Link } from "react-router-dom";
 import logoSVG from "./logo-transparent.png";
+import { useState } from "react";
 
 export default function Register() {
+  const [generalError, setGeneralError] = useState("");
   function handleSubmit(event) {
     event.preventDefault();
+    setGeneralError("");
 
     // buil-in feature browser offer FormData onject
     const fd = new FormData(event.target);
@@ -15,60 +18,71 @@ export default function Register() {
 
   return (
     <>
-      <div className="form-signup bg-dark">
-        <div className="row mx-auto">
-          <p className="h2 text-light">Sign up</p>
-          <form
-            className="col col-md-6 py-5 text-light "
-            onSubmit={handleSubmit}
-          >
-            <Input
-              type="text"
-              name="first-name"
-              id="first-name"
-              label="First name"
-            />
-            <Input
-              type="text"
-              name="last-name"
-              id="last-name"
-              label="Last name"
-            />
-            <Input
-              type="text"
-              name="contact-number"
-              id="contact-number"
-              label="Contact number"
-            />
-            <Input
-              type="text"
-              name="user-name"
-              id="user-name"
-              label="Username"
-            />
-            <Input type="email" name="email" id="email" label="Email" />
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              label="Password"
-            />
+      <div className="container">
+        <div className="row justify-content-center align-items-center min-vh-100">
+          <div className="col-12 col-md-12 col-lg-4">
+            <div className="card shadow-sm">
+              <div className="card-body">
+                <div className="text-center mb-2">
+                  <img src={logoSVG} alt="Logo" style={{ maxWidth: "150px" }} />
+                </div>
+                <p className="text-center h3 text-dark">Sign up</p>
+                {generalError && (
+                  <div className="text-center text-danger mb-3">
+                    {generalError}
+                  </div>
+                )}
+                <form className="text-dark " onSubmit={handleSubmit}>
+                  <Input
+                    type="text"
+                    name="first-name"
+                    id="first-name"
+                    label="First name"
+                  />
+                  <Input
+                    type="text"
+                    name="last-name"
+                    id="last-name"
+                    label="Last name"
+                  />
+                  <Input
+                    type="text"
+                    name="contact-number"
+                    id="contact-number"
+                    label="Contact number"
+                  />
+                  <Input
+                    type="text"
+                    name="user-name"
+                    id="user-name"
+                    label="Username"
+                  />
+                  <Input type="email" name="email" id="email" label="Email" />
+                  <Input
+                    type="password"
+                    name="password"
+                    id="password"
+                    label="Password"
+                  />
 
-            <div className="d-grid col-md-6">
-              <Button className="btn-warning " type="submit">
-                {" "}
-                Register{" "}
-              </Button>
+                  <Button className="btn-dark w-100" type="submit">
+                    {" "}
+                    Register{" "}
+                  </Button>
+                  <div className="text-sm mt-2 ">
+                    <p className="h6">
+                      Have an account?{" "}
+                      <Link
+                        className="text-danger link-underline-light"
+                        to="/login"
+                      >
+                        Login
+                      </Link>{" "}
+                    </p>
+                  </div>
+                </form>
+              </div>
             </div>
-            <p className="">
-              Have an account?{" "}
-              <Link className="text-danger link-underline-dark" to="/login">
-                Login
-              </Link>{" "}
-            </p>
-          </form>
-          <div className="col col-md-6">
-            <img src={logoSVG} style={{ height: "20rem" }} />
           </div>
         </div>
       </div>

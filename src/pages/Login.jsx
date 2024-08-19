@@ -86,7 +86,7 @@ const LoginForm = () => {
         <div className="col-12 col-md-6 col-lg-4">
           <div className="card shadow-sm">
             <div className="card-body">
-              <div className="text-center mb-4">
+              <div className="text-center mb-2">
                 <img src={logoSVG} alt="Logo" style={{ maxWidth: "150px" }} />
               </div>
               <h3 className="text-center mb-4">Login</h3>
