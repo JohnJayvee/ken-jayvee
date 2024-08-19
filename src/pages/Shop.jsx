@@ -16,7 +16,7 @@ export default function Shop() {
   } = useHttp(API_ENDPOINTS.FETCH_PRODUCTS, requestConfig, []);
 
   if (isLoading) {
-    return <p className="h2">Fetching meals...</p>;
+    return <p className="h2">Fetching products...</p>;
   }
 
   if (error) {
