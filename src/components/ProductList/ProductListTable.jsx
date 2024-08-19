@@ -1,3 +1,5 @@
+import Button from "../UI/Button";
+
 const ProductListTable = () => {
   return (
     <>
@@ -23,43 +25,10 @@ const ProductListTable = () => {
               <td>data</td>
               <td>placeholder</td>
               <td>text</td>
-              <td>buttons</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>
-                {" "}
-                <img src="" alt="" />
-                image2
+              <td className="row me-2">
+                <Button className="btn-dark col-lg-4 me-3">Edit</Button>
+                <Button className="btn-danger col-lg-4">Delete</Button>
               </td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-              <td>buttons</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>
-                {" "}
-                <img src="" alt="" />
-                image2
-              </td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-              <td>buttons</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>
-                {" "}
-                <img src="" alt="" />
-                image2
-              </td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-              <td>buttons</td>
             </tr>
           </tbody>
         </table>
