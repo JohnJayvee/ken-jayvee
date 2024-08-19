@@ -20,9 +20,7 @@ export default function Shop() {
   }
 
   if (error) {
-    return (
-      <Error title="Failed to fetch Meals" message={error && error.success} />
-    ); //since I'm setting the error state to the error message(useHttp.jsx).
+    return <Error title="Failed to fetch Products" message={error} />; //since I'm setting the error state to the error message(useHttp.jsx).
   }
   return (
     <>

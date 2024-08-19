@@ -1,11 +1,15 @@
-body {
-  margin: 0;
+*{
+ margin: 0;
+ padding: 0;
+}
+html, body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #FAFAFA;
+ height: 100%;
 }
 .custom-navbar{
   background-color: #FAFAFA;
@@ -13,7 +17,6 @@ body {
 .custom-footer{
   background-color: #FAFAFA;
 }
-
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
