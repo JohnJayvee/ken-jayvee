@@ -27,7 +27,7 @@ const ProductListTable = () => {
       <p className="h3 text-warning">
         {`Total Order: ${loadedItem && loadedItem.totalOrders}`}
       </p>
-      <Table className="table table-striped table-sm">
+      <Table className="table table-striped table-md">
         <thead>
           <tr>
             <th scope="col">Product id</th>
@@ -47,11 +47,10 @@ const ProductListTable = () => {
                 <tr key={order.id}>
                   <td>{order.id}</td>
                   <td>
-                    {order.email}
-                    {/* <img
-                src={`${API_ENDPOINTS.FETCH_IMAGE}/${order}`}
-                alt={order.productName}
-              /> */}
+                    <img
+                      src={`${API_ENDPOINTS.FETCH_IMAGE}/${order.image}`}
+                      alt={order.productName}
+                    />
                   </td>
                   <td>{order.productName}</td>
                   <td>{order.firstName}</td>
@@ -59,7 +58,7 @@ const ProductListTable = () => {
                   <td>{order.trackingNumber}</td>
                   <td className="row me-2">
                     <Button
-                      className="btn-dark col-lg-4 me-3"
+                      className="btn-dark col-lg-4 me-3 m-md-2"
                       onClick={() => {}}
                     >
                       Edit
