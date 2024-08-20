@@ -33,7 +33,6 @@ export default function Checkout() {
   );
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
     const fd = new FormData(e.target);
     const customerData = Object.fromEntries(fd.entries());
 
@@ -45,7 +44,9 @@ export default function Checkout() {
     };
 
     // Send the order data using the custom hook
-    sendRequest(JSON.stringify(orderData));
+    sendRequest(() => {
+      JSON.stringify(orderData);
+    });
   };
 
   let actions = (

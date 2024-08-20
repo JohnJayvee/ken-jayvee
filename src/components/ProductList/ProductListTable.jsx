@@ -1,13 +1,15 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { API_ENDPOINTS } from "../../BaseUrl";
 import Error from "../Error";
 import useHttp from "../Hooks/useHttp";
 import Table from "../Place-Order/Table";
 import Button from "../UI/Button";
 import CartContext from "../../store/CartContext";
+import axios from "axios";
 
 const requestConfig = {};
 const ProductListTable = ({ image }) => {
+  const [deletedItem, setDeletedItem] = useState([]);
   const cartCtx = useContext(CartContext);
   const {
     // destructuring from the custom Http Hookf to get hold of the data that's eventually returned
@@ -24,11 +26,23 @@ const ProductListTable = ({ image }) => {
     return <Error title="Failed to fetch Orders" message={error} />; //since I'm setting the error state to the error message(useHttp.jsx).
   }
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(
+        `http://white-emu-581912.hostingersite.com/api/order/delete/${id}`
+      );
+      // Update the state to remove the deleted item from the UI
+      setDeletedItem((prevItems) => prevItems.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Failed to delete activity:", error);
+    }
+  };
+
   return (
     <div className="table-responsive small">
       <p className="h2 text-center">Product List</p>
       <p className="h3 text-warning">
-        {`Total Order: ${loadedItem && loadedItem.totalOrders}`}
+        {`Total Orders: ${loadedItem && loadedItem.totalOrders}`}
       </p>
       <Table className="table table-striped table-md">
         <thead>
@@ -69,7 +83,13 @@ const ProductListTable = ({ image }) => {
                     >
                       Edit
                     </Button>
-                    <Button className="btn-danger col-lg-5" onClick={() => {}}>
+                    <Button
+                      className="btn-danger col-lg-5"
+                      onClick={() => {
+                        handleDelete(order.id);
+                        alert(`${order.productName} Deleted`);
+                      }}
+                    >
                       Delete
                     </Button>
                   </td>
