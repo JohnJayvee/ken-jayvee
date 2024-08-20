@@ -51,7 +51,7 @@ function Header() {
         </button>
 
         <div
-          className="navbar-collapse collapse justify-content-md-end"
+          className="navbar-collapse collapse justify-content-md-start"
           id="navbarCollapse"
         >
           <ul className="navbar-nav col-3 col-md-6 mb-2 mb-md-0 custom-navbar-nav">
@@ -101,9 +101,12 @@ function Header() {
               <img src={cartIcon} style={{ height: "2rem" }} />({totalCartItems}
               )
             </Button>
-            <Button className="nav-link px-1 link-secondary">
+            <Button className="nav-link px-1 link-secondary position-relative">
               <Link to="/productList" className="dropdown-item">
                 <img src={myOrderIcon} style={{ height: "4rem" }} />
+                <span className="position-absolute top-100 start-50 translate-middle badge rounded-pill bg-warning">
+                  My Orders
+                </span>
               </Link>
             </Button>
           </div>{" "}

@@ -1,11 +1,14 @@
+import { useContext } from "react";
 import { API_ENDPOINTS } from "../../BaseUrl";
 import Error from "../Error";
 import useHttp from "../Hooks/useHttp";
 import Table from "../Place-Order/Table";
 import Button from "../UI/Button";
+import CartContext from "../../store/CartContext";
 
 const requestConfig = {};
-const ProductListTable = () => {
+const ProductListTable = ({ image }) => {
+  const cartCtx = useContext(CartContext);
   const {
     // destructuring from the custom Http Hookf to get hold of the data that's eventually returned
     data: loadedItem, // set the alias loadedMeals already for the Data fetched
@@ -44,26 +47,29 @@ const ProductListTable = () => {
             loadedItem.orders &&
             loadedItem.orders.map((order) => (
               <>
-                <tr key={order.id}>
+                <tr className="p-lg-5" key={order.id}>
                   <td>{order.id}</td>
                   <td>
-                    <img
-                      src={`${API_ENDPOINTS.FETCH_IMAGE}/${order.image}`}
-                      alt={order.productName}
-                    />
+                    {
+                      <img
+                        key={order.id}
+                        src={`${API_ENDPOINTS.FETCH_ORDERS.FETCH_IMAGE}/${image}`}
+                        alt={order.productName}
+                      />
+                    }
                   </td>
                   <td>{order.productName}</td>
                   <td>{order.firstName}</td>
                   <td>{order.lastName}</td>
                   <td>{order.trackingNumber}</td>
-                  <td className="row me-2">
+                  <td className="row g-md-1">
                     <Button
-                      className="btn-dark col-lg-4 me-3 m-md-2"
+                      className="btn-dark col-lg-5 me-lg-2"
                       onClick={() => {}}
                     >
                       Edit
                     </Button>
-                    <Button className="btn-danger col-lg-4" onClick={() => {}}>
+                    <Button className="btn-danger col-lg-5" onClick={() => {}}>
                       Delete
                     </Button>
                   </td>
