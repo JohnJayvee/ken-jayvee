@@ -32,11 +32,11 @@ export default function UserFeedbacks() {
 
   return (
     <>
-      <p className="text-center text-lg font-bold">USER FEEDBACK</p>
+      <p className="h2 text-center text-lg font-bold">USER FEEDBACK</p>
       <div className="container mx-auto">
         <div className="flex flex-wrap justify-center">
           {array.slice(0, 3).map((feedbackItem) => (
-            <div key={feedbackItem.id} className="w-full sm:w-1/2 lg:w-1/3 p-4">
+            <div key={feedbackItem.id} className="w-full p-4">
               <img
                 className="rounded-circle w-25"
                 src={`${API_ENDPOINTS.FETCH_IMAGE}/${feedbackItem.image}`}

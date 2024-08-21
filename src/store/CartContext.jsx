@@ -9,7 +9,7 @@ const CartContext = createContext({
 
 // Cart reducer to manage state based on actions
 function cartReducer(state, action) {
-  if (action.type === "ADD_ITEM") {
+  if (action.type === "INCREASE_ITEM") {
     // Find index of the existing item in the cart
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.item.id
@@ -34,7 +34,7 @@ function cartReducer(state, action) {
     return { ...state, items: updatedItems };
   }
 
-  if (action.type === "REMOVE_ITEM") {
+  if (action.type === "DECREASE_ITEM") {
     // Find index of the existing item in the cart
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.id
@@ -72,12 +72,12 @@ export function CartContextProvider({ children }) {
 
   // Function to add an item to the cart
   function addItem(item) {
-    dispatchCartAction({ type: "ADD_ITEM", item });
+    dispatchCartAction({ type: "INCREASE_ITEM", item });
   }
 
   // Function to remove an item from the cart
   function removeItem(id) {
-    dispatchCartAction({ type: "REMOVE_ITEM", id });
+    dispatchCartAction({ type: "DECREASE_ITEM", id });
   }
 
   // Context value containing cart items and functions

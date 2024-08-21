@@ -15,8 +15,12 @@ export default function CartItem({
   }
   return (
     <li className="cart-item">
-      <img src={`${API_ENDPOINTS.FETCH_IMAGE}/${image}`} alt={`${itemName}`} />
-      <p>
+      <img
+        className="rounded object-fit-lg-contain border"
+        src={`${API_ENDPOINTS.FETCH_IMAGE}/${image}`}
+        alt={`${itemName}`}
+      />
+      <p className="h4">
         {itemName} - {quantity} x {`₱${price}`}
       </p>
       <div className="cart-item-actions">

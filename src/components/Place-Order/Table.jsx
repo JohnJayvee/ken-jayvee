@@ -1,10 +1,8 @@
-import Button from "../UI/Button";
-
-export default function Table({ className = "", ...props }) {
+export default function Table({ className = "", children, ...props }) {
   return (
     <>
       <table className={`table ${className}`} {...props}>
-        <Button></Button>
+        {children}
       </table>
     </>
   );

@@ -1,16 +1,16 @@
+import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
 async function sendHttpRequest(url, config) {
-  const response = await fetch(url, config);
-
-  const resData = await response.json();
-
-  if (!response.ok) {
-    throw new Error(
-      resData.message || "Something went wrong, failed to send request."
-    );
+  try {
+    const response = await axios(url, config);
+    return response.data;
+  } catch (error) {
+    const errorMessage =
+      error.response?.data?.message ||
+      "Something went wrong, failed to send request.";
+    throw new Error(errorMessage);
   }
-  return resData;
 }
 
 const useHttp = (url, config, initialData) => {
@@ -24,8 +24,8 @@ const useHttp = (url, config, initialData) => {
       try {
         const resData = await sendHttpRequest(url, { ...config, body: data });
         setData(resData);
-      } catch {
-        setError(error || "Something went wrong!");
+      } catch (err) {
+        setError(err.message || "Something went wrong!");
       }
       setIsLoading(false); //end the request after
     },
@@ -39,6 +39,7 @@ const useHttp = (url, config, initialData) => {
       sendRequest();
     }
   }, [sendRequest, config]);
+
   return {
     data,
     isLoading,

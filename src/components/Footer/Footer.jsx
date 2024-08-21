@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="container-fluid custom-footer">
       <div className="d-flex flex-wrap justify-content-between align-items-center py-3  border-top container">
         <p className="col-md-4 mb-0 text-body-secondary">
-          © 2024 Kodego Students, Ken & John
+          © 2024 Kodego Students, Ken & Jayvee
         </p>
 
         <a
@@ -25,7 +25,7 @@ export default function Footer() {
           </li>
           <li className="nav-item">
             <Link to="/shop" className="nav-link px-2 text-body-secondary">
-              Service
+              Shop
             </Link>
           </li>
           <li className="nav-item">
