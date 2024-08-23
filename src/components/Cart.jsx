@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import CartContext from "../store/CartContext";
 import Modal from "./UI/Modal";
 import Button from "./UI/Button";
 import UserProgressContext from "../store/UserProgressContext";
+import CartContext from "../store/CartContext";
 import CartItem from "./CartItem";
 
 export default function Cart() {

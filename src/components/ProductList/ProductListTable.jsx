@@ -6,11 +6,17 @@ import Table from "../Place-Order/Table";
 import Button from "../UI/Button";
 import CartContext from "../../store/CartContext";
 import axios from "axios";
+import UserProgressContext from "../../store/UserProgressContext";
+import ShowUpdateModal from "./ShowUpdateModal";
 
 const requestConfig = {};
 const ProductListTable = ({ image }) => {
   const [deletedItem, setDeletedItem] = useState([]);
+  const [editedItem, setEditedItem] = useState([]);
   const cartCtx = useContext(CartContext);
+  const userProgressCtx = useContext(UserProgressContext);
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const {
     // destructuring from the custom Http Hookf to get hold of the data that's eventually returned
     data: loadedItem, // set the alias loadedMeals already for the Data fetched
@@ -28,8 +34,8 @@ const ProductListTable = ({ image }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(
-        `http://white-emu-581912.hostingersite.com/api/order/delete/${id}`
+      await axios.put(
+        `http://white-emu-581912.hostingersite.com/api/order/update/${id}`
       );
       // Update the state to remove the deleted item from the UI
       setDeletedItem((prevItems) => prevItems.filter((item) => item.id !== id));
@@ -38,13 +44,29 @@ const ProductListTable = ({ image }) => {
     }
   };
 
+  const handleEditListener = async (id) => {
+    try {
+      await axios.delete(
+        `http://white-emu-581912.hostingersite.com/api/order/delete/${id}`
+      );
+      // Update the state to remove the deleted item from the UI
+      setEditedItem((prevItems) => prevItems.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Failed to delete activity:", error);
+    }
+  };
+
+  const handleEdit = (order) => {
+    setSelectedItem(order);
+  };
+
   return (
     <div className="table-responsive small">
       <p className="h2 text-center">Product List</p>
       <p className="h3 text-warning">
         {`Total Orders: ${loadedItem && loadedItem.totalOrders}`}
       </p>
-      <Table className="table table-striped table-md">
+      <Table className="table table-striped ">
         <thead>
           <tr>
             <th scope="col">Product id</th>
@@ -56,11 +78,12 @@ const ProductListTable = ({ image }) => {
             <th scope="col">Actions</th>
           </tr>
         </thead>
-        <tbody>
-          {loadedItem &&
-            loadedItem.orders &&
-            loadedItem.orders.map((order) => (
-              <>
+        {loadedItem &&
+          loadedItem.orders &&
+          loadedItem.orders.map((order) => (
+            <>
+              {" "}
+              <tbody key={order.id}>
                 <tr className="p-lg-5" key={order.id}>
                   <td>{order.id}</td>
                   <td>
@@ -79,7 +102,11 @@ const ProductListTable = ({ image }) => {
                   <td className="row g-md-1">
                     <Button
                       className="btn-dark col-lg-5 me-lg-2"
-                      onClick={() => {}}
+                      onClick={() => {
+                        {
+                          handleEdit(order);
+                        }
+                      }}
                     >
                       Edit
                     </Button>
@@ -94,9 +121,9 @@ const ProductListTable = ({ image }) => {
                     </Button>
                   </td>
                 </tr>
-              </>
-            ))}
-        </tbody>
+              </tbody>
+            </>
+          ))}
       </Table>
     </div>
   );

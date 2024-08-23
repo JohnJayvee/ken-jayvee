@@ -14,6 +14,9 @@ const Checkout = lazy(() => import("./components/Checkout.jsx"));
 const FeedbackPage = lazy(() => import("./pages/FeedbackPage.jsx"));
 const UserFeedbackPage = lazy(() => import("./pages/UserFeedbackPage.jsx"));
 const ProductList = lazy(() => import("./pages/ProductList.jsx"));
+const ShowUpdateModal = lazy(() =>
+  import("./components/ProductList/ShowUpdateModal.jsx")
+);
 
 const routes = [
   { path: "/", exact: true, title: "Home", element: <Home /> },
@@ -50,6 +53,8 @@ function App() {
       <CartContextProvider>
         <Cart />
         <Checkout />
+
+        <ShowUpdateModal />
         <Suspense>{element}</Suspense>
 
         <GoTop />

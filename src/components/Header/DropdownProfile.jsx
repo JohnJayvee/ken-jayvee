@@ -2,10 +2,36 @@ import React, { useEffect, useRef, useState } from "react";
 import Button from "../UI/Button";
 import { API_ENDPOINTS } from "../../BaseUrl";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../Context/UserContext";
 
 export default function DropdownProfile() {
   const [array, setArray] = useState([]);
   const initialized = useRef(false);
+  const navigate = useNavigate();
+  const { user, setUser } = useUser(); // Access user and setUser from context
+
+  const handleLogout = () => {
+    // Clear user data from context
+    setUser(null);
+
+    // Determine if the token is stored in localStorage or sessionStorage
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+
+    // Remove token from the appropriate storage
+    if (localStorage.getItem("token")) {
+      localStorage.removeItem("token");
+    } else {
+      sessionStorage.removeItem("token");
+    }
+
+    // Remove user data from localStorage if it's there
+    localStorage.removeItem("user");
+
+    // Redirect to login page
+    navigate("/login", { replace: true });
+  };
   useEffect(() => {
     if (!initialized.current) {
       initialized.current = true;
@@ -34,12 +60,21 @@ export default function DropdownProfile() {
       <ul className="d-flex-col">
         <p>HELLO</p>
         {array.slice(0, -2).map((dropItem) => {
-          <p className="h3">{dropItem.email}</p>;
+          <>
+            <img
+              src={user.imageUrl || "https://bit.ly/dan-abramov"}
+              size="xl"
+              mb={3}
+              mx="auto"
+            />
+            <p className="h3">{dropItem.email}</p>;
+          </>;
         })}
 
         <Button
           className="btn-danger"
           onClick={() => {
+            handleLogout();
             alert("logout");
           }}
         >
