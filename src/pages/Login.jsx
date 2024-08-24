@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import logoSVG from "./logo-transparent.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-
+import { useUser } from "../Context/UserContext.jsx";
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { setUser } = useUser();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -16,6 +17,16 @@ const LoginForm = () => {
   const [loginError, setLoginError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [generalError, setGeneralError] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+      navigate("/home", { replace: true }); // Redirect to dashboard if token exists
+    }
+  }, [navigate]);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -56,6 +67,14 @@ const LoginForm = () => {
         } else {
           sessionStorage.setItem("token", response.data.token);
         }
+        setIsLoggedIn(true); // Update login status
+        setUser({
+          id: response.data.user.id || null,
+          name: response.data.user.name || "Guest",
+          imageUrl: response.data.user.imageUrl || "https://bit.ly/dan-abramov",
+        });
+
+        response.data.user.id;
         navigate("/home"); // Redirect to the home page after login
       }
     } catch (error) {

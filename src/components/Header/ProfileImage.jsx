@@ -4,11 +4,13 @@ import Button from "../UI/Button";
 import axios from "axios";
 import DropdownProfile from "./DropdownProfile";
 import useAuth from "../auth";
+import { useUser } from "../../Context/UserContext";
 
 export default function ProfileImage() {
   const [array, setArray] = useState([]);
   const [loadedProfile, setLoadedProfile] = useState(false);
   const initialized = useRef(false);
+  const { user } = useUser();
 
   useEffect(() => {
     if (!initialized.current) {
@@ -44,17 +46,11 @@ export default function ProfileImage() {
         className="nav-link px-1 link-secondary me-2"
         onClick={() => setLoadedProfile((prev) => !prev)}
       >
-        {array.slice(0, 1).map((profileItem) => {
-          {
-            {
-              <img
-                key={profileItem.id}
-                src={`http://white-emu-581912.hostingersite.com/${profileItem.image}`}
-                style={{ height: "2rem" }}
-              />;
-            }
-          }
-        })}{" "}
+        <img
+          src={user.imageUrl}
+          style={{ height: "3rem" }}
+          className="rounded-circle"
+        />
       </Button>
       {loadedProfile && <DropdownProfile />}
     </>

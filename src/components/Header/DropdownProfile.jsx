@@ -61,12 +61,7 @@ export default function DropdownProfile() {
         <p>HELLO</p>
         {array.slice(0, -2).map((dropItem) => {
           <>
-            <img
-              src={user.imageUrl || "https://bit.ly/dan-abramov"}
-              size="xl"
-              mb={3}
-              mx="auto"
-            />
+            <img src={user.imageUrl || "https://bit.ly/dan-abramov"} />
             <p className="h3">{dropItem.email}</p>;
           </>;
         })}
