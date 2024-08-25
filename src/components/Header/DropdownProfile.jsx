@@ -56,12 +56,19 @@ export default function DropdownProfile() {
     }
   }, []);
   return (
-    <div className="d-flex custom-dropdown">
+    <div className="d-flex custom-dropdown dropdown-menu">
       <ul className="d-flex-col">
-        <p>HELLO</p>
+        <p className="h4">{user.username}</p>
+        <p className="h6">{user.email}</p>
         {array.slice(0, -2).map((dropItem) => {
           <>
-            <img src={user.imageUrl || "https://bit.ly/dan-abramov"} />
+            <img
+              src={
+                `${API_ENDPOINTS.FETCH_IMAGE}/${user.image}` ||
+                "https://bit.ly/dan-abramov"
+              }
+              alt={`${user.name} profile`}
+            />
             <p className="h3">{dropItem.email}</p>;
           </>;
         })}

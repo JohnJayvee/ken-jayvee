@@ -2,11 +2,11 @@ import { useContext, useState } from "react";
 import { API_ENDPOINTS } from "../../BaseUrl";
 import Error from "../Error";
 import useHttp from "../Hooks/useHttp";
-import Table from "../Place-Order/Table";
 import Button from "../UI/Button";
 import CartContext from "../../store/CartContext";
 import axios from "axios";
 import UserProgressContext from "../../store/UserProgressContext";
+import Table from "../UI/Table";
 import ShowUpdateModal from "./ShowUpdateModal";
 
 const requestConfig = {};
@@ -57,7 +57,8 @@ const ProductListTable = ({ image }) => {
   };
 
   const handleEdit = (order) => {
-    setSelectedItem(order);
+    setSelectedItem(order.id);
+    console.log(order.data);
   };
 
   return (
@@ -69,7 +70,6 @@ const ProductListTable = ({ image }) => {
       <Table className="table table-striped ">
         <thead>
           <tr>
-            <th scope="col">Product id</th>
             <th scope="col">Item</th>
             <th scope="col">Item Name</th>
             <th scope="col">Price</th>

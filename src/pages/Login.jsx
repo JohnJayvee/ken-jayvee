@@ -5,6 +5,7 @@ import logoSVG from "./logo-transparent.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../Context/UserContext.jsx";
+import { API_ENDPOINTS } from "../BaseUrl.jsx";
 const LoginForm = () => {
   const navigate = useNavigate();
   const { setUser } = useUser();
@@ -49,7 +50,7 @@ const LoginForm = () => {
 
     try {
       const response = await axios.post(
-        "http://white-emu-581912.hostingersite.com/api/login",
+        API_ENDPOINTS.LOGIN_USERS,
         {
           login: formData.email,
           password: formData.password,
@@ -71,7 +72,9 @@ const LoginForm = () => {
         setUser({
           id: response.data.user.id || null,
           name: response.data.user.name || "Guest",
-          imageUrl: response.data.user.imageUrl || "https://bit.ly/dan-abramov",
+          imageUrl: response.data.user.image || "https://bit.ly/dan-abramov",
+          email: response.data.user.email || null,
+          username: response.data.user.username || null,
         });
 
         response.data.user.id;

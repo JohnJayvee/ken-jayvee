@@ -41,9 +41,12 @@ export default function ProfileImage() {
   }
 
   return (
-    <>
+    <div className="dropdown-center">
       <Button
-        className="nav-link px-1 link-secondary me-2"
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
         onClick={() => setLoadedProfile((prev) => !prev)}
       >
         <img
@@ -53,6 +56,6 @@ export default function ProfileImage() {
         />
       </Button>
       {loadedProfile && <DropdownProfile />}
-    </>
+    </div>
   );
 }
