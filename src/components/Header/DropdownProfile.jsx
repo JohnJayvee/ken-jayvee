@@ -4,6 +4,7 @@ import { API_ENDPOINTS } from "../../BaseUrl";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../Context/UserContext";
+import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 
 export default function DropdownProfile() {
   const [array, setArray] = useState([]);
@@ -56,22 +57,19 @@ export default function DropdownProfile() {
     }
   }, []);
   return (
-    <div className="d-flex custom-dropdown dropdown-menu">
-      <ul className="d-flex-col">
+    <div className="d-flex custom-dropdown dropdown-menu mt-3">
+      <ul className="d-flex-col ">
+        <img
+          className="rounded-5"
+          src={
+            `${API_ENDPOINTS.FETCH_IMAGE}/${user.imageUrl}` ||
+            "https://bit.ly/dan-abramov"
+          }
+          alt={`${user.name}`}
+          style={{ height: "75px" }}
+        />
         <p className="h4">{user.username}</p>
         <p className="h6">{user.email}</p>
-        {array.slice(0, -2).map((dropItem) => {
-          <>
-            <img
-              src={
-                `${API_ENDPOINTS.FETCH_IMAGE}/${user.image}` ||
-                "https://bit.ly/dan-abramov"
-              }
-              alt={`${user.name} profile`}
-            />
-            <p className="h3">{dropItem.email}</p>;
-          </>;
-        })}
 
         <Button
           className="btn-danger"

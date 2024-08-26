@@ -17,7 +17,6 @@ export default function Checkout() {
   const [isSending, setIsSending] = useState(false);
   const [errors, setErrors] = useState({}); // state for validation errors
   const [formData, setFormData] = useState({
-    id: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -48,7 +47,7 @@ export default function Checkout() {
 
     try {
       const response = await axios.post(
-        `http://white-emu-581912.hostingersite.com/api/order/create`,
+        `http://white-emu-581912.hostingersite.com/api/order/create/${user.id}`,
         formData,
         {
           headers: {
@@ -56,6 +55,7 @@ export default function Checkout() {
           },
         }
       );
+      console.log(user.id);
       console.log("Order submitted successfully:", response.data);
       setFormData({
         firstName: "",
@@ -91,17 +91,6 @@ export default function Checkout() {
     } finally {
       setIsSending(false);
     }
-    // const orderData = {
-    //   order: {
-    //     items: cartCtx.items, // Updated to access items from cartCtx
-    //     customer: customerData,
-    //   },
-    // };
-
-    // // Send the order data using the custom hook
-    // sendRequest(() => {
-    //   JSON.stringify(orderData);
-    // });
   };
 
   let actions = (

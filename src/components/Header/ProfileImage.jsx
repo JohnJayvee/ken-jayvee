@@ -41,21 +41,27 @@ export default function ProfileImage() {
   }
 
   return (
-    <div className="dropdown-center">
+    <>
       <Button
-        class="btn btn-secondary dropdown-toggle"
+        className="btn btn-outline-light dropdown-toggle p-0 ms-2"
         type="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"
         onClick={() => setLoadedProfile((prev) => !prev)}
       >
-        <img
-          src={user.imageUrl}
-          style={{ height: "3rem" }}
-          className="rounded-circle"
-        />
+        <div className="dropdown-center">
+          <img
+            className="rounded-5"
+            src={
+              `${API_ENDPOINTS.FETCH_IMAGE}/${user.imageUrl}` ||
+              "https://bit.ly/dan-abramov"
+            }
+            alt={`${user.name}`}
+            style={{ height: "75px" }}
+          />
+        </div>
       </Button>
       {loadedProfile && <DropdownProfile />}
-    </div>
+    </>
   );
 }
