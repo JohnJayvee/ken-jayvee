@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Button from "../UI/Button";
 import { useUser } from "../../Context/UserContext";
+import { Navigate } from "react-router-dom";
 
 const FeedbackJ = () => {
   const { user } = useUser();
@@ -60,59 +61,6 @@ const FeedbackJ = () => {
             <h2 className="h2">Get in Touch</h2>
             <form onSubmit={handleSubmit} noValidate>
               <div className="">
-                {/* <div className="px-2 mb-4">
-                  <Input
-                    className={`form-control w-full p-3 border rounded-lg focus:outline-none ${
-                      errors.name
-                        ? "border-red-500"
-                        : formData.name
-                        ? "border-green-500"
-                        : "border-blue-300"
-                    }`}
-                    name="name"
-                    id="name"
-                    type="text"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    onFocus={(e) => (e.target.placeholder = "")}
-                    onBlur={(e) => (e.target.placeholder = "Enter your name")}
-                    label="Name"
-                  />
-                  {errors.name && (
-                    <p className="text-red-500 text-xs mt-1">
-                      {errors.name[0]}
-                    </p>
-                  )}
-                </div> */}
-
-                {/* <div className="w-full  px-2 mb-4">
-                  <Input
-                    className={`form-control w-full p-3 border rounded-lg focus:outline-none ${
-                      errors.email
-                        ? "border-red-500"
-                        : formData.email
-                        ? "border-green-500"
-                        : "border-blue-300"
-                    }`}
-                    name="email"
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    onFocus={(e) => (e.target.placeholder = "")}
-                    onBlur={(e) =>
-                      (e.target.placeholder = "Enter email address")
-                    }
-                    placeholder="Email"
-                    label="Email"
-                  />
-                  {errors.email && (
-                    <p className="text-red-500 text-xs mt-1">
-                      {errors.email[0]}
-                    </p>
-                  )}
-                </div> */}
-
                 <div className="w-full px-2 mb-4">
                   <h3>Leave a Message : </h3>
                   <textarea
@@ -123,8 +71,6 @@ const FeedbackJ = () => {
                     id="feedback"
                     value={formData.message}
                     onChange={handleInputChange}
-                    // onFocus={(e) => (e.target.placeholder = '')}
-                    // onBlur={(e) => (e.target.placeholder = 'Enter Message')}
                     placeholder="Enter Feedback"
                     required
                   ></textarea>
