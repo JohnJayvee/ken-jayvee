@@ -25,7 +25,7 @@ export default function Checkout() {
     firstName: user.name,
     lastName: user.name,
     email: user.email,
-    cellphoneNumber: "123",
+    cellphoneNumber: "",
     address: "",
     message: " " || null,
     paymentMethod: "cash on delivery" || " ", // Default to "Cash on Delivery"
