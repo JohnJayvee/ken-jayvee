@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CartContext from "../store/CartContext";
 import UserProgressContext from "../store/UserProgressContext";
 import Modal from "./UI/Modal";
@@ -25,16 +25,26 @@ export default function Checkout() {
     message: "",
     paymentMethod: "cash on delivery", // Default value is always "cash on delivery"
     user_id: user ? user.id : "",
-    orders: [
-      cartCtx.items.map((item) => {
-        ({
-          product_id: item.id,
-          quantity: item.quantity,
-          totalPrice: cart,
-        });
-      }),
-    ],
+    orders: cartCtx.items.map((item) => ({
+      product_id: item.id,
+      quantity: item.quantity,
+      totalPrice: cartTotal,
+    })),
   });
+
+  //nasolve karin
+  const cd = cartCtx.items;
+  useEffect(() => {
+    setFormData((prevData) => ({
+      ...prevData,
+      orders: cartCtx.items.map((item) => ({
+        product_id: item.id,
+        quantity: item.quantity,
+        totalPrice: item.quantity * item.price, // Ensure correct total price per item
+      })),
+    }));
+  }, [cd]);
+
   // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
