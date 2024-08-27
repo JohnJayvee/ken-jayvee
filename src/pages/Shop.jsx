@@ -50,33 +50,3 @@ export default function Shop() {
     </>
   );
 }
-
-///////////////////////////
-//BEFORE :  USING AXIOS
-// const [loadedItem, setLoadedItem] = useState([]);
-// const initialized = useRef(false);
-// const userProgressCtx = useContext(UserProgressContext);
-
-// useEffect(() => {
-//   if (!initialized.current) {
-//     initialized.current = true;
-//     axios
-//       .get(API_ENDPOINTS.FETCH_PRODUCTS, {
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       })
-//       .then((response) => {
-//         console.log("API Response:", response);
-//         // Ensure the response data has a Products array
-//         if (response.data.success && Array.isArray(response.data.products)) {
-//           setLoadedItem(response.data.products);
-//         } else {
-//           console.error("Unexpected response format:", response.data);
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching the products:", error);
-//       });
-//   }
-// }, []);

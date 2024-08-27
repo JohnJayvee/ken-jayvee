@@ -4,7 +4,6 @@ import UserProgressContext from "../store/UserProgressContext";
 import Modal from "./UI/Modal";
 import Input from "./UI/InputBlock";
 import Button from "./UI/Button";
-import { API_ENDPOINTS } from "../BaseUrl";
 import { useUser } from "../Context/UserContext";
 import axios from "axios";
 
@@ -16,15 +15,26 @@ export default function Checkout() {
   const { user } = useUser();
   const [isSending, setIsSending] = useState(false);
   const [errors, setErrors] = useState({}); // state for validation errors
+  const cartTotal = cartCtx.items.reduce(
+    (totalPrice, item) => totalPrice + item.quantity * item.price,
+    0
+  );
+
+  // cartCtx.addItem(foods);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName: user.name,
+    lastName: user.name,
+    email: user.email,
     cellphoneNumber: "",
     address: "",
-    paymentMethod: "",
-    user_id: "",
-    order_id: "",
+    message: " " || null,
+    paymentMethod: "cash on delivery" || " ", // Default to "Cash on Delivery"
+    user_id: user.id,
+    orders: cartCtx.items.map((item) => ({
+      product_id: item.id,
+      quantity: item.quantity,
+      totalPrice: item.quantity * item.price,
+    })),
   });
 
   const handleChange = (e) => {
@@ -35,19 +45,12 @@ export default function Checkout() {
     }));
   };
 
-  const cartTotal = cartCtx.items.reduce(
-    (totalPrice, item) => totalPrice + item.quantity * item.price,
-    0
-  );
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const fd = new FormData(e.target);
-    // const customerData = Object.fromEntries(fd.entries());
 
     try {
       const response = await axios.post(
-        `http://white-emu-581912.hostingersite.com/api/order/create/${user.id}`,
+        " http://white-emu-581912.hostingersite.com/api/order/create",
         formData,
         {
           headers: {
@@ -55,23 +58,15 @@ export default function Checkout() {
           },
         }
       );
-      console.log(user.id);
       console.log("Order submitted successfully:", response.data);
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        cellphoneNumber: "",
-        address: "",
-        user_id: "",
-        order_id: [{ product_id: "", quantity: 1, totalPrice: "" }],
-        message: null,
-      });
+      setFormData({ message: "" });
       setErrors({}); // Clear errors on successful submission
+      window.location.reload();
     } catch (error) {
       if (error.response && error.response.status === 422) {
         // Validation errors
         setErrors(error.response.data.errors);
+        console.log(formData);
 
         <Modal open={userProgressCtx.progress === "checkout"}>
           <p className="h2">Success!</p>
@@ -111,26 +106,11 @@ export default function Checkout() {
   if (isSending) {
     actions = <span>Sending order data...</span>;
   }
-
   return (
     <Modal open={userProgressCtx.progress === "checkout"}>
       <form onSubmit={handleSubmit}>
         <h2>Checkout</h2>
         <p className="h2">Total Amount: ₱{cartTotal}</p>
-        <Input
-          label="First Name"
-          type="text"
-          id="firstName"
-          name="firstName"
-          onChange={handleChange}
-        />
-        <Input
-          label="Last Name"
-          type="text"
-          id="lastName"
-          name="lastName"
-          onChange={handleChange}
-        />
         <Input
           label="Email"
           type="email"
@@ -152,22 +132,29 @@ export default function Checkout() {
           name="address"
           onChange={handleChange}
         />
+        <textarea
+          className="w-50"
+          label="message"
+          type="text"
+          id="message"
+          name="message"
+          placeholder="Note to seller"
+          onChange={handleChange}
+        ></textarea>
         <div className="control-row">
           <label className="h5">
             Payment method
             <select
               name="paymentMethod"
               id="paymentMethod"
+              value={formData.paymentMethod}
               onChange={handleChange}
             >
-              <option value="cash">Cash</option>
-              <option value="online payment">Online Payment</option>
+              <option value="cash on delivery">Cash on Delivery</option>
+              <option value="Gcash">Gcash</option>
             </select>
           </label>
         </div>
-        {/* {errors && (
-          <Error title="Failed to Submit Order" message={errors.error} /> 
-        )}*/}
         <div className="modal-actions">{actions}</div>
       </form>
     </Modal>

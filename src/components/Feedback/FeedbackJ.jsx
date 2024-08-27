@@ -35,6 +35,7 @@ const FeedbackJ = () => {
         console.log(response);
         setFormData({ message: "" });
         setErrors({});
+        window.location.reload();
       } else {
         alert("Failed to send message.");
       }

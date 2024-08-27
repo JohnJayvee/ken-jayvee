@@ -38,7 +38,7 @@ export default function UserFeedbacks() {
           {array.slice(0, 10).map((feedbackItem) => (
             <div key={feedbackItem.id} className="row g-3 col-md-6 p-0 m-0">
               <img
-                className="rounded-circle col-md-4 w-25  align-self-md-center"
+                className="rounded-circle col-md-4 w-25 align-self-md-center"
                 src={`${API_ENDPOINTS.FETCH_IMAGE}/${feedbackItem.image}`}
                 alt={feedbackItem.name}
                 style={{ height: "6rem" }}
