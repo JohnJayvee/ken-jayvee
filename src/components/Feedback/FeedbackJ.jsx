@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import Button from "../UI/Button";
 import { useUser } from "../../Context/UserContext";
-import { Navigate } from "react-router-dom";
 
 const FeedbackJ = () => {
   const { user } = useUser();
