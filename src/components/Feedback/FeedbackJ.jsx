@@ -6,7 +6,7 @@ import { useUser } from "../../Context/UserContext";
 const FeedbackJ = () => {
   const { user } = useUser();
   const [formData, setFormData] = useState({
-    user_id: user.id,
+    user_id: user ? user.id : "",
     feedback: "",
   });
   const [errors, setErrors] = useState({});

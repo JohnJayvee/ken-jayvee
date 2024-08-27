@@ -45,6 +45,7 @@ const ProductListTable = () => {
       );
       // Update the state to remove the deleted item from the UI
       setDeletedItem((prevItems) => prevItems.filter((item) => item.id !== id));
+
       window.location.reload();
     } catch (error) {
       console.error("Failed to delete activity:", error);
@@ -121,7 +122,9 @@ const ProductListTable = () => {
                     className="btn-danger col-lg-12 p-md-4"
                     onClick={() => {
                       handleDelete(order.id);
-                      alert(`${order.productName} Deleted`);
+                      window.confirm(
+                        `Do you want to remove ${order.productName}? `
+                      );
                     }}
                   >
                     Delete
