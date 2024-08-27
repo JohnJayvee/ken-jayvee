@@ -6,9 +6,6 @@ import Input from "./UI/InputBlock";
 import Button from "./UI/Button";
 import { useUser } from "../Context/UserContext";
 import axios from "axios";
-
-// define outside to avoid infinite loops of recreating an object
-
 export default function Checkout() {
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
@@ -19,24 +16,26 @@ export default function Checkout() {
     (totalPrice, item) => totalPrice + item.quantity * item.price,
     0
   );
-
-  // cartCtx.addItem(foods);
   const [formData, setFormData] = useState({
-    firstName: user.name,
-    lastName: user.name,
+    firstName: user ? user.name : "", // Set to empty string if user is not defined
+    lastName: user ? user.name : "", // Set to empty string if user is not defined
     email: "",
     cellphoneNumber: "",
     address: "",
-    message: " " || null,
-    paymentMethod: "cash on delivery" || " ", // Default to "Cash on Delivery"
-    user_id: user.id,
-    orders: cartCtx.items.map((item) => ({
-      product_id: item.id,
-      quantity: item.quantity,
-      totalPrice: item.quantity * item.price,
-    })),
+    message: "",
+    paymentMethod: "cash on delivery", // Default value is always "cash on delivery"
+    user_id: user ? user.id : "",
+    orders: [
+      cartCtx.items.map((item) => {
+        ({
+          product_id: item.id,
+          quantity: item.quantity,
+          totalPrice: cart,
+        });
+      }),
+    ],
   });
-
+  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -44,13 +43,22 @@ export default function Checkout() {
       [name]: value,
     }));
   };
-
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsSending(true);
+    // Check if orders array is empty
+    if (formData.orders.length === 0) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        orders: ["The orders field is required."],
+      }));
+      setIsSending(false);
+      return;
+    }
     try {
       const response = await axios.post(
-        " http://white-emu-581912.hostingersite.com/api/order/create",
+        "http://white-emu-581912.hostingersite.com/api/order/create",
         formData,
         {
           headers: {
@@ -58,28 +66,19 @@ export default function Checkout() {
           },
         }
       );
+      // Success handling
       console.log("Order submitted successfully:", response.data);
-      setFormData({ message: "" });
+      setFormData((prevData) => ({
+        ...prevData,
+        message: "",
+      }));
       setErrors({}); // Clear errors on successful submission
       window.location.reload();
     } catch (error) {
+      // Error handling
       if (error.response && error.response.status === 422) {
-        // Validation errors
         setErrors(error.response.data.errors);
         console.log(formData);
-
-        <Modal open={userProgressCtx.progress === "checkout"}>
-          <p className="h2">Success!</p>
-          <p className="h3 text-dark">Order was submitted successfully</p>
-          <div className="modal-actions">
-            <Button
-              className="btn-dark"
-              onClick={() => userProgressCtx.hideCheckout()}
-            >
-              Okay
-            </Button>
-          </div>
-        </Modal>;
       } else {
         console.error("Error submitting form:", error);
       }
@@ -87,7 +86,7 @@ export default function Checkout() {
       setIsSending(false);
     }
   };
-
+  // Actions for the modal
   let actions = (
     <>
       <Button
@@ -102,7 +101,6 @@ export default function Checkout() {
       </Button>
     </>
   );
-
   if (isSending) {
     actions = <span>Sending order data...</span>;
   }
@@ -117,29 +115,37 @@ export default function Checkout() {
           id="email"
           name="email"
           onChange={handleChange}
+          value={formData.email}
         />
+        {errors.email && <p className="error-text">{errors.email[0]}</p>}
         <Input
           label="Contact Number"
           type="text"
           id="cellphoneNumber"
           name="cellphoneNumber"
           onChange={handleChange}
+          value={formData.cellphoneNumber}
         />
+        {errors.cellphoneNumber && (
+          <p className="error-text">{errors.cellphoneNumber[0]}</p>
+        )}
         <Input
           label="Address"
           type="text"
           id="address"
           name="address"
           onChange={handleChange}
+          value={formData.address}
         />
+        {errors.address && <p className="error-text">{errors.address[0]}</p>}
         <textarea
           className="w-50"
           label="message"
-          type="text"
           id="message"
           name="message"
           placeholder="Note to seller"
           onChange={handleChange}
+          value={formData.message}
         ></textarea>
         <div className="control-row">
           <label className="h5">
@@ -155,6 +161,10 @@ export default function Checkout() {
             </select>
           </label>
         </div>
+        {errors.paymentMethod && (
+          <p className="error-text">{errors.paymentMethod[0]}</p>
+        )}
+        {errors.orders && <p className="error-text">{errors.orders[0]}</p>}
         <div className="modal-actions">{actions}</div>
       </form>
     </Modal>
