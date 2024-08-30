@@ -89,13 +89,13 @@ const ProductListTable = () => {
           </tr>
         </thead>
         {loadedItem &&
-          loadedItem.orders &&
-          loadedItem.orders.map((order) => (
+          loadedItem.users &&
+          loadedItem.users.map((order) => (
             <tbody key={order.id}>
               <tr className="p-lg-5 ">
                 <td>
                   <img
-                    src={`${API_ENDPOINTS.FETCH_IMAGE}/${user.imageUrl}`}
+                    src={`${API_ENDPOINTS.FETCH_IMAGE}/${order.image}`}
                     alt={"image not available"}
                     style={{ height: "10rem" }}
                   />
