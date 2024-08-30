@@ -8,4 +8,5 @@ export const API_ENDPOINTS = {
   FETCH_USER: `${BASE_URL}/api/users`,
   POST_PRODUCTS: `${BASE_URL}/api/order/create`,
   FETCH_ORDERS: `${BASE_URL}/api/orders`,
+  LOGIN_USERS: `${BASE_URL}/api/login`,
 };

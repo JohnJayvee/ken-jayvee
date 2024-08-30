@@ -4,11 +4,13 @@ import Button from "../UI/Button";
 import axios from "axios";
 import DropdownProfile from "./DropdownProfile";
 import useAuth from "../auth";
+import { useUser } from "../../Context/UserContext";
 
 export default function ProfileImage() {
   const [array, setArray] = useState([]);
   const [loadedProfile, setLoadedProfile] = useState(false);
   const initialized = useRef(false);
+  const { user } = useUser();
 
   useEffect(() => {
     if (!initialized.current) {
@@ -41,20 +43,23 @@ export default function ProfileImage() {
   return (
     <>
       <Button
-        className="nav-link px-1 link-secondary me-2"
+        className="btn btn-outline-light dropdown-toggle p-0 ms-2"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
         onClick={() => setLoadedProfile((prev) => !prev)}
       >
-        {array.slice(0, 1).map((profileItem) => {
-          {
-            {
-              <img
-                key={profileItem.id}
-                src={`http://white-emu-581912.hostingersite.com/${profileItem.image}`}
-                style={{ height: "2rem" }}
-              />;
+        <div className="dropdown-center">
+          <img
+            className="rounded-5"
+            src={
+              `${API_ENDPOINTS.FETCH_IMAGE}/${user.imageUrl}` ||
+              "https://bit.ly/dan-abramov"
             }
-          }
-        })}{" "}
+            alt={`${user.name}`}
+            style={{ height: "75px" }}
+          />
+        </div>
       </Button>
       {loadedProfile && <DropdownProfile />}
     </>

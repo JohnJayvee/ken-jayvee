@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Input from "../UI/InputBlock";
 import Button from "../UI/Button";
+import { useUser } from "../../Context/UserContext";
 
 const FeedbackJ = () => {
+  const { user } = useUser();
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    username: "",
+    user_id: user ? user.id : "",
+    feedback: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -21,7 +21,7 @@ const FeedbackJ = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://white-emu-581912.hostingersite.com/api/user/register",
+        "http://white-emu-581912.hostingersite.com/api/feedback/create",
         formData,
         {
           headers: {
@@ -32,8 +32,9 @@ const FeedbackJ = () => {
       if (response.status === 200 || response.status === 201) {
         alert("Message sent successfully!");
         console.log(response);
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData({ message: "" });
         setErrors({});
+        window.location.reload();
       } else {
         alert("Failed to send message.");
       }
@@ -60,72 +61,17 @@ const FeedbackJ = () => {
             <h2 className="h2">Get in Touch</h2>
             <form onSubmit={handleSubmit} noValidate>
               <div className="">
-                <div className="px-2 mb-4">
-                  <Input
-                    className={`form-control w-full p-3 border rounded-lg focus:outline-none ${
-                      errors.name
-                        ? "border-red-500"
-                        : formData.name
-                        ? "border-green-500"
-                        : "border-blue-300"
-                    }`}
-                    name="name"
-                    id="name"
-                    type="text"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    onFocus={(e) => (e.target.placeholder = "")}
-                    onBlur={(e) => (e.target.placeholder = "Enter your name")}
-                    label="Name"
-                  />
-                  {errors.name && (
-                    <p className="text-red-500 text-xs mt-1">
-                      {errors.name[0]}
-                    </p>
-                  )}
-                </div>
-
-                <div className="w-full md:w-1/2 px-2 mb-4">
-                  <Input
-                    className={`form-control w-full p-3 border rounded-lg focus:outline-none ${
-                      errors.email
-                        ? "border-red-500"
-                        : formData.email
-                        ? "border-green-500"
-                        : "border-blue-300"
-                    }`}
-                    name="email"
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    onFocus={(e) => (e.target.placeholder = "")}
-                    onBlur={(e) =>
-                      (e.target.placeholder = "Enter email address")
-                    }
-                    placeholder="Email"
-                    label="Email"
-                  />
-                  {errors.email && (
-                    <p className="text-red-500 text-xs mt-1">
-                      {errors.email[0]}
-                    </p>
-                  )}
-                </div>
-
                 <div className="w-full px-2 mb-4">
                   <h3>Leave a Message : </h3>
                   <textarea
                     className={`form-control w-full h-40 p-3 border rounded-lg focus:outline-none resize-none ${
                       errors.message ? "border-red-500" : formData.message
                     }`}
-                    name="message"
-                    id="message"
+                    name="feedback"
+                    id="feedback"
                     value={formData.message}
                     onChange={handleInputChange}
-                    // onFocus={(e) => (e.target.placeholder = '')}
-                    // onBlur={(e) => (e.target.placeholder = 'Enter Message')}
-                    placeholder="Enter Message"
+                    placeholder="Enter Feedback"
                     required
                   ></textarea>
                   {errors.message && (

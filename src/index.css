@@ -241,30 +241,6 @@ text-align: center;
 .simple-modal::backdrop {
   background-color: rgba(0, 0, 0, 0.887);
 }
-.custom-dropdown{
-  position: absolute;
-  top: 4.5rem;
-  right: 0.5rem;
-  width:10rem;
-  padding: 15px;
-  border-radius: 8px;
-  background-color: white;
-  border: 1px solid gray;
-  z-index: 1;
-  }
-  
-  .custom-dropdown::before{
-  content: '';
-  position: absolute;
-  top: -0.7rem;
-  right: 1.1rem;
-  width: 20px;
-  height: 20px;
-  transform: rotate(45deg);
-  border-left: 1px solid gray;
-  border-top: 1px solid gray;
-  border-bottom: 1.5rem solid white;
-  }
 
   /* Pagination  */
 /* end Pagination */
