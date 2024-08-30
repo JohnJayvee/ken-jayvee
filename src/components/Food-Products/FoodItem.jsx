@@ -9,29 +9,34 @@ export default function FoodItem({ foods }) {
     cartCtx.addItem(foods);
   }
   return (
-    <li className="food-item">
-      <div className="">
-        <div className="item-card ">
+    <li className="food-item ">
+      <div className="item-card row">
+        <div className="col-md">
           <img
-            className="rounded object-fit-lg-contain object-fit-md-contain mt-md-2 object-fit-sm-contain h-auto p-lg-2 p-md-2"
+            className="rounded mt-2 "
             key={foods.id}
             src={`${API_ENDPOINTS.FETCH_IMAGE}/${foods.image}`}
             alt={foods.name}
           />
-          <div>
-            <h3>{foods.name}</h3>
+        </div>
+        <div>
+          <h3>{foods.name}</h3>
 
-            <p className="food-item-description">
-              {`- ${foods.description.substring(0, 60)} -`}
-            </p>
-          </div>
+          <p className="food-item-description m-0">
+            {`- ${foods.description.substring(0, 60)} -`}
+          </p>
+        </div>
 
-          <div className="food-item-actions row g-2 mx-3">
-            <dt className="food-item-price">₱{foods.price}</dt>
-            <Button className="btn-outline-light" onClick={handleAddFoodToCart}>
-              Add to Cart
-            </Button>
-          </div>
+        <div className="row g-md-1 d-flex justify-content-md-center">
+          <dt className="food-item-price col-md-7 col-sm m-sm-1">
+            ₱{foods.price}
+          </dt>
+          <Button
+            className="btn-outline-light col-md-7 col-sm p-0 "
+            onClick={handleAddFoodToCart}
+          >
+            Add to Cart
+          </Button>
         </div>
       </div>
     </li>

@@ -4,8 +4,8 @@ import logoIcon from "./logo-transparent.png";
 
 export default function Footer() {
   return (
-    <footer className="container custom-footer py-3 mt-auto">
-      <div className="d-flex flex-wrap justify-content-between align-items-center py-3  border-top container">
+    <footer className="container custom-footer py-3">
+      <div className="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
         <p className="col-md-4 mb-0 text-body-secondary">
           © 2024 Kodego Students, Ken & Jayvee
         </p>
