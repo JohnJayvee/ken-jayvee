@@ -32,7 +32,6 @@ export default function Checkout() {
     })),
   });
 
-  //nasolve karin
   const cd = cartCtx.items;
   useEffect(() => {
     setFormData((prevData) => ({
@@ -70,11 +69,7 @@ export default function Checkout() {
       const response = await axios.post(
         "http://white-emu-581912.hostingersite.com/api/order/create",
         formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        { headers: { "Content-Type": "application/json" } }
       );
       // Success handling
       console.log("Order submitted successfully:", response.data);

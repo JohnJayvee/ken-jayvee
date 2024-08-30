@@ -28,16 +28,15 @@ const ProductListTable = () => {
     isLoading,
     error,
   } = useHttp(API_ENDPOINTS.FETCH_ORDERS, requestConfig, []);
-  console.log(loadedItem);
 
   if (isLoading) {
-    return <p className="h2">Fetching product list data...</p>;
+    return <p className="h2 text-center">Fetching product list data...</p>;
   }
 
   if (error) {
-    return <Error title="Failed to fetch Orders" message={error} />; //since I'm setting the error state to the error message(useHttp.jsx).
+    return <Error className="text-center text-dark" message={error} />; //since I'm setting the error state to the error message(useHttp.jsx).
   }
-
+  console.log(loadedItem);
   const handleDelete = async (id) => {
     try {
       await axios.delete(

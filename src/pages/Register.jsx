@@ -3,18 +3,59 @@ import Input from "../components/UI/InputBlock";
 import { Link } from "react-router-dom";
 import logoSVG from "./logo-transparent.png";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Register() {
   const [generalError, setGeneralError] = useState("");
-  function handleSubmit(event) {
+  const [isSending, setIsSending] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    username: "",
+    password: "",
+    password_confirmation: "",
+    image: "",
+  });
+
+  // Handle input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setGeneralError("");
+    setIsSending(true);
 
-    // buil-in feature browser offer FormData onject
-    const fd = new FormData(event.target);
-    const customerData = Object.fromEntries(fd.entries()); // passing form data ENTRIES will RETURN then an object { email: test@example.com } a key : value pairs
-    // also extract entered by the user into object e.g {full-name : 'ken mark amandoron'}
-  }
+    try {
+      const response = await axios.post(
+        "http://white-emu-581912.hostingersite.com/api/user/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("User Registered Successfully", response.data);
+      setFormData((prevData) => ({ ...prevData, message: "" }));
+    } catch (error) {
+      // Error handling
+      if (error.response && error.response.status === 422) {
+        setGeneralError(error.response.data.errors);
+        console.log(formData);
+      } else {
+        console.error("Error submitting registration form:", error);
+        console.log(formData);
+      }
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   return (
     <>
@@ -32,37 +73,43 @@ export default function Register() {
                     {generalError}
                   </div>
                 )}
-                <form className="text-dark " onSubmit={handleSubmit}>
+                <form
+                  className="text-dark "
+                  onSubmit={handleSubmit}
+                  encType="multipart/form-data"
+                >
+                  <Input type="text" name="name" id="name" label="Fullname" />
+
+                  <Input type="text" name="email" id="email" label="Email" />
                   <Input
                     type="text"
-                    name="first-name"
-                    id="first-name"
-                    label="First name"
-                  />
-                  <Input
-                    type="text"
-                    name="last-name"
-                    id="last-name"
-                    label="Last name"
-                  />
-                  <Input
-                    type="text"
-                    name="contact-number"
-                    id="contact-number"
-                    label="Contact number"
-                  />
-                  <Input
-                    type="text"
-                    name="user-name"
-                    id="user-name"
+                    name="username"
+                    id="username"
                     label="Username"
+                    onChange={handleChange}
                   />
-                  <Input type="email" name="email" id="email" label="Email" />
                   <Input
                     type="password"
                     name="password"
                     id="password"
                     label="Password"
+                    onChange={handleChange}
+                  />
+
+                  <Input
+                    type="password"
+                    name="password_confirmation"
+                    id="password_confirmation"
+                    label="Confirm Password"
+                    onChange={handleChange}
+                  />
+
+                  <Input
+                    type="file"
+                    name="image"
+                    id="image"
+                    label="Profile Image"
+                    onChange={handleChange}
                   />
 
                   <Button className="btn-dark w-100" type="submit">
