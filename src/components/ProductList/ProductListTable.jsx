@@ -9,9 +9,6 @@ import UserProgressContext from "../../store/UserProgressContext";
 import Table from "../UI/Table";
 import { useUser } from "../../Context/UserContext";
 
-// import ShowUpdateModal from "./ShowUpdateModal";
-// import { Navigate } from "react-router-dom";
-
 const requestConfig = {};
 const ProductListTable = () => {
   const cartCtx = useContext(CartContext);
@@ -20,22 +17,39 @@ const ProductListTable = () => {
   const [isAction, setIsAction] = useState(false);
   const userProgressCtx = useContext(UserProgressContext);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadedItem, setLoadedItem] = useState();
   const { user } = useUser();
 
-  const {
-    // destructuring from the custom Http Hookf to get hold of the data that's eventually returned
-    data: loadedItem, // set the alias loadedMeals already for the Data fetched
-    isLoading,
-    error,
-  } = useHttp(API_ENDPOINTS.FETCH_ORDERS, requestConfig, []);
+  // const {
+  //   // destructuring from the custom Http Hookf to get hold of the data that's eventually returned
+  //   data: loadedItem, // set the alias loadedMeals already for the Data fetched
+  //   isLoading,
+  //   error,
+  // } = useHttp(API_ENDPOINTS.FETCH_ORDERS, requestConfig, []);
 
-  if (isLoading) {
-    return <p className="h2 text-center">Fetching product list data...</p>;
-  }
-
-  if (error) {
-    return <Error className="text-center text-dark" message={error} />; //since I'm setting the error state to the error message(useHttp.jsx).
-  }
+  setLoadedItem(() => {});
+  axios.get(
+    `http://white-emu-581912.hostingersite.com/api/user/orders/${user.id}`
+      .then((response) => {
+        setIsLoading(true);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        return <Error className="text-center text-dark" message={error} />; //since I'm setting the error state to the error message(useHttp.jsx).
+      })
+      .finally(() => {
+        if (isLoading) {
+          return (
+            <p className="h2 text-center">Fetching product list data...</p>
+          );
+        }
+      })
+  );
+  console.log(response.data);
+  // if (error) {
+  //   return <Error className="text-center text-dark" message={error} />; //since I'm setting the error state to the error message(useHttp.jsx).
+  // }
   console.log(loadedItem);
   const handleDelete = async (id) => {
     try {
@@ -73,7 +87,7 @@ const ProductListTable = () => {
       <p className="h2 text-center">Product List</p>
 
       <p className="h3 text-warning col-md d-flex justify-content-md-end me-5">
-        {`Total Orders: ${loadedItem && loadedItem.totalOrders}`}
+        {`Total Orders: ${loadedItem && loadedItem.users.totalUserOrders}`}
       </p>
 
       <Table className="table table-striped">
