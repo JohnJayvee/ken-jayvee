@@ -1,0 +1,1 @@
+import{u as n,r as t}from"./index-BgBV79IB.js";const a=()=>{const e=n(),[s,o]=t.useState(!1);return t.useEffect(()=>{localStorage.getItem("token")||sessionStorage.getItem("token")?o(!0):e("/login",{replace:!0})},[e]),s},g=a;export{g as u};
