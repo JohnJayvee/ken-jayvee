@@ -14,16 +14,23 @@ export default function Register() {
     username: "",
     password: "",
     password_confirmation: "",
-    image: "",
+    image: null, // Use null to handle file input
   });
 
   // Handle input change
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    const { name, value, files } = e.target;
+    if (name === "image") {
+      setFormData((prevData) => ({
+        ...prevData,
+        image: files[0], // Assign the uploaded file to the image field
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -31,26 +38,37 @@ export default function Register() {
     setGeneralError("");
     setIsSending(true);
 
+    // Prepare form data with file upload
+    const formDataToSubmit = new FormData();
+    Object.keys(formData).forEach((key) => {
+      formDataToSubmit.append(key, formData[key]);
+    });
+
     try {
       const response = await axios.post(
         "http://white-emu-581912.hostingersite.com/api/user/register",
-        formData,
+        formDataToSubmit,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
       console.log("User Registered Successfully", response.data);
-      setFormData((prevData) => ({ ...prevData, message: "" }));
+      setFormData({
+        name: "",
+        email: "",
+        username: "",
+        password: "",
+        password_confirmation: "",
+        image: null,
+      });
     } catch (error) {
       // Error handling
       if (error.response && error.response.status === 422) {
         setGeneralError(error.response.data.errors);
-        console.log(formData);
       } else {
         console.error("Error submitting registration form:", error);
-        console.log(formData);
       }
     } finally {
       setIsSending(false);
@@ -74,19 +92,33 @@ export default function Register() {
                   </div>
                 )}
                 <form
-                  className="text-dark "
+                  className="text-dark"
                   onSubmit={handleSubmit}
                   encType="multipart/form-data"
                 >
-                  <Input type="text" name="name" id="name" label="Fullname" />
-
-                  <Input type="text" name="email" id="email" label="Email" />
+                  <Input
+                    type="text"
+                    name="name"
+                    id="name"
+                    label="Fullname"
+                    onChange={handleChange}
+                    value={formData.name}
+                  />
+                  <Input
+                    type="text"
+                    name="email"
+                    id="email"
+                    label="Email"
+                    onChange={handleChange}
+                    value={formData.email}
+                  />
                   <Input
                     type="text"
                     name="username"
                     id="username"
                     label="Username"
                     onChange={handleChange}
+                    value={formData.username}
                   />
                   <Input
                     type="password"
@@ -94,16 +126,16 @@ export default function Register() {
                     id="password"
                     label="Password"
                     onChange={handleChange}
+                    value={formData.password}
                   />
-
                   <Input
                     type="password"
                     name="password_confirmation"
                     id="password_confirmation"
                     label="Confirm Password"
                     onChange={handleChange}
+                    value={formData.password_confirmation}
                   />
-
                   <Input
                     type="file"
                     name="image"
@@ -111,12 +143,10 @@ export default function Register() {
                     label="Profile Image"
                     onChange={handleChange}
                   />
-
-                  <Button className="btn-dark w-100" type="submit">
-                    {" "}
-                    Register{" "}
+                  <Button className="btn-dark w-100" type="submit" disabled={isSending}>
+                    {isSending ? "Registering..." : "Register"}
                   </Button>
-                  <div className="text-sm mt-2 ">
+                  <div className="text-sm mt-2">
                     <p className="h6">
                       Have an account?{" "}
                       <Link
@@ -124,7 +154,7 @@ export default function Register() {
                         to="/login"
                       >
                         Login
-                      </Link>{" "}
+                      </Link>
                     </p>
                   </div>
                 </form>
