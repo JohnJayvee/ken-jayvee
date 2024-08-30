@@ -24,7 +24,9 @@ const ProductListTable = () => {
     const fetchOrders = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`http://white-emu-581912.hostingersite.com/api/user/orders/${user.id}`);
+        const response = await axios.get(
+          `http://white-emu-581912.hostingersite.com/api/user/orders/${user.id}`
+        );
         setLoadedItem(response.data.user);
         console.log(response.data.user);
       } catch (error) {
@@ -39,7 +41,9 @@ const ProductListTable = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://white-emu-581912.hostingersite.com/api/order/delete/${id}`);
+      await axios.delete(
+        `http://white-emu-581912.hostingersite.com/api/order/delete/${id}`
+      );
       setDeletedItem((prevItems) => prevItems.filter((item) => item.id !== id));
       window.location.reload();
     } catch (error) {
@@ -49,7 +53,9 @@ const ProductListTable = () => {
 
   const handleEditListener = async (id) => {
     try {
-      await axios.put(`http://white-emu-581912.hostingersite.com/api/order/update/${id}`);
+      await axios.put(
+        `http://white-emu-581912.hostingersite.com/api/order/update/${id}`
+      );
       setEditedItem((prevItems) => prevItems.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Failed to update activity:", error);
@@ -78,18 +84,17 @@ const ProductListTable = () => {
       </p>
 
       <Table className="table table-striped">
-        <thead>
+        <thead className="text-center">
           <tr>
             <th scope="col">Item</th>
             <th scope="col">Item Name</th>
-            <th scope="col">Price</th>
             <th scope="col">Quantity</th>
             <th scope="col">Target Date</th>
-            <th scope="col">Tracking #</th>
+            <th scope="col">Total Price</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="text-center">
           {loadedItem?.orders?.map((order) => (
             <tr key={order.id} className="p-lg-5">
               <td>
@@ -100,21 +105,24 @@ const ProductListTable = () => {
                 />
               </td>
               <td>{order.productName}</td>
-              <td>{order.totalPrice}</td>
               <td>{order.quantity}</td>
               <td>{order.targetDate}</td>
-              <td>{order.trackingNumber}</td>
-              <td className="row g-md-2">
+              <td>{`₱${order.totalPrice}`}</td>
+              <td className="row d-flex justify-content-md-end me-2">
                 <Button
-                  className="btn-dark col-lg-12 p-md-4"
+                  className="btn-dark col-md-7 mb-sm-2 p-sm-4"
                   onClick={() => handleEditListener(order.id)}
                 >
                   Edit
                 </Button>
                 <Button
-                  className="btn-danger col-lg-12 p-md-4"
+                  className="btn-danger col-md-7 p-sm-4 mb-sm-2"
                   onClick={() => {
-                    if (window.confirm(`Do you want to remove ${order.productName}?`)) {
+                    if (
+                      window.confirm(
+                        `Do you want to remove ${order.productName}?`
+                      )
+                    ) {
                       handleDelete(order.id);
                     }
                   }}

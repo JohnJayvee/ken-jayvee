@@ -95,8 +95,14 @@ function Header() {
               onClick={handleShowCart}
               className="nav-link px-1 link-secondary"
             >
-              <img src={cartIcon} style={{ height: "2rem" }} />({totalCartItems}
-              )
+              <img src={cartIcon} style={{ height: "2rem" }} />
+              {totalCartItems === 0 ? (
+                <span></span>
+              ) : (
+                <span className="bg-danger rounded-circle text-light p-md-1">
+                  {totalCartItems}
+                </span>
+              )}
             </Button>
             <Button className="nav-link px-1 link-secondary position-relative">
               <Link to="/productList" className="dropdown-item">
