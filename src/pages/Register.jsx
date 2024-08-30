@@ -1,6 +1,6 @@
 import Button from "../components/UI/Button";
 import Input from "../components/UI/InputBlock";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import logoSVG from "./logo-transparent.png";
 import { useState } from "react";
 import axios from "axios";
@@ -55,6 +55,7 @@ export default function Register() {
         }
       );
       console.log("User Registered Successfully", response.data);
+      window.location.replace("/login");
       setFormData({
         name: "",
         email: "",
@@ -143,7 +144,11 @@ export default function Register() {
                     label="Profile Image"
                     onChange={handleChange}
                   />
-                  <Button className="btn-dark w-100" type="submit" disabled={isSending}>
+                  <Button
+                    className="btn-dark w-100"
+                    type="submit"
+                    disabled={isSending}
+                  >
                     {isSending ? "Registering..." : "Register"}
                   </Button>
                   <div className="text-sm mt-2">

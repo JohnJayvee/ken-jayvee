@@ -23,9 +23,9 @@ function Header() {
     userProgressCtx.showCart();
   }
   const isLoggedIn = useAuth();
-  if (!isLoggedIn) {
-    return null;
-  }
+  // if (!isLoggedIn) {
+  //   return null;
+  // }
 
   return (
     <header className="navbar navbar-expand-md mb-3 border-bottom row custom-navbar">
