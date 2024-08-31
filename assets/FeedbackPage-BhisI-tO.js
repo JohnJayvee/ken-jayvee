@@ -1,0 +1,1 @@
+import{j as r}from"./index-DevTugQe.js";import{F as o}from"./FeedbackJ-DwyE6mzk.js";import{H as t,F as e}from"./Footer-ZWlmAPu5.js";import"./axios-B4uVmeYG.js";import"./Button-CjOQrwZD.js";import"./BaseUrl-6_kCCrH9.js";import"./auth-CiGQs6yf.js";function n(){return r.jsxs(r.Fragment,{children:[r.jsx(t,{}),r.jsx(o,{}),r.jsx(e,{})]})}export{n as default};
