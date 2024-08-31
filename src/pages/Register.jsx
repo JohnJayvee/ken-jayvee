@@ -7,6 +7,7 @@ import axios from "axios";
 
 export default function Register() {
   const [generalError, setGeneralError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
   const [isSending, setIsSending] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -14,47 +15,69 @@ export default function Register() {
     username: "",
     password: "",
     password_confirmation: "",
-    image: "",
+    image: null, // Use null to handle file input
   });
 
   // Handle input change
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    const { name, value, files } = e.target;
+    if (name === "image") {
+      setFormData((prevData) => ({
+        ...prevData,
+        image: files[0], // Assign the uploaded file to the image field
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setGeneralError("");
+    setFieldErrors({});
     setIsSending(true);
+
+    // Prepare form data with file upload
+    const formDataToSubmit = new FormData();
+    Object.keys(formData).forEach((key) => {
+      formDataToSubmit.append(key, formData[key]);
+    });
 
     try {
       const response = await axios.post(
         "http://white-emu-581912.hostingersite.com/api/user/register",
-        formData,
+        formDataToSubmit,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
       console.log("User Registered Successfully", response.data);
-      setFormData((prevData) => ({ ...prevData, message: "" }));
+      window.location.replace("/login");
+      setFormData({
+        name: "",
+        email: "",
+        username: "",
+        password: "",
+        password_confirmation: "",
+        image: null,
+      });
     } catch (error) {
       // Error handling
       if (error.response && error.response.status === 422) {
-        setGeneralError(error.response.data.errors);
-        console.log(formData);
+        setFieldErrors(error.response.data.errors);
+        // setGeneralError("Please fix the highlighted errors.");
+        setGeneralError("Please check all the fields");
+
       } else {
         console.error("Error submitting registration form:", error);
-        console.log(formData);
+        setGeneralError("An unexpected error occurred. Please try again.");
       }
     } finally {
-      alert("Registration Successful, Proceed to Login");
-      redirect("./Login.jsx");
       setIsSending(false);
     }
   };
@@ -76,36 +99,68 @@ export default function Register() {
                   </div>
                 )}
                 <form
-                  className="text-dark "
+                  className="text-dark"
                   onSubmit={handleSubmit}
                   encType="multipart/form-data"
+                  noValidate
                 >
-                  <Input type="text" name="name" id="name" label="Fullname" />
-
-                  <Input type="text" name="email" id="email" label="Email" />
+                  <Input
+                    type="text"
+                    name="name"
+                    id="name"
+                    label="Fullname"
+                    onChange={handleChange}
+                    value={formData.name}
+                  />
+                  {fieldErrors.name && (
+                    <div className="text-danger">{fieldErrors.name[0]}</div>
+                  )}
+                  <Input
+                    type="text"
+                    name="email"
+                    id="email"
+                    label="Email"
+                    onChange={handleChange}
+                    value={formData.email}
+                  />
+                  {fieldErrors.email && (
+                    <div className="text-danger">{fieldErrors.email[0]}</div>
+                  )}
                   <Input
                     type="text"
                     name="username"
                     id="username"
                     label="Username"
                     onChange={handleChange}
+                    value={formData.username}
                   />
+                  {fieldErrors.username && (
+                    <div className="text-danger">{fieldErrors.username[0]}</div>
+                  )}
                   <Input
                     type="password"
                     name="password"
                     id="password"
                     label="Password"
                     onChange={handleChange}
+                    value={formData.password}
                   />
-
+                  {fieldErrors.password && (
+                    <div className="text-danger">{fieldErrors.password[0]}</div>
+                  )}
                   <Input
                     type="password"
                     name="password_confirmation"
                     id="password_confirmation"
                     label="Confirm Password"
                     onChange={handleChange}
+                    value={formData.password_confirmation}
                   />
-
+                  {fieldErrors.password_confirmation && (
+                    <div className="text-danger">
+                      {fieldErrors.password_confirmation[0]}
+                    </div>
+                  )}
                   <Input
                     type="file"
                     name="image"
@@ -113,12 +168,17 @@ export default function Register() {
                     label="Profile Image"
                     onChange={handleChange}
                   />
-
-                  <Button className="btn-dark w-100" type="submit">
-                    {" "}
-                    Register{" "}
+                  {fieldErrors.image && (
+                    <div className="text-danger">{fieldErrors.image[0]}</div>
+                  )}
+                  <Button
+                    className="btn-dark w-100"
+                    type="submit"
+                    disabled={isSending}
+                  >
+                    {isSending ? "Registering..." : "Register"}
                   </Button>
-                  <div className="text-sm mt-2 ">
+                  <div className="text-sm mt-2">
                     <p className="h6">
                       Have an account?{" "}
                       <Link
@@ -126,7 +186,7 @@ export default function Register() {
                         to="/login"
                       >
                         Login
-                      </Link>{" "}
+                      </Link>
                     </p>
                   </div>
                 </form>

@@ -1,10 +1,9 @@
 import logoSVG from "./logo-transparent.png";
-// import userIcon from "./user-login-icon-removebg-preview.png";
 import cartIcon from "./Untitled_design-removebg-preview.png";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import Button from "../UI/Button";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import CartContext from "../../store/CartContext";
 import UserProgressContext from "../../store/UserProgressContext";
 import myOrderIcon from "./place-holder.png";
@@ -22,10 +21,8 @@ function Header() {
   function handleShowCart() {
     userProgressCtx.showCart();
   }
-  const isLoggedIn = useAuth();
-  if (!isLoggedIn) {
-    return null;
-  }
+
+  const isLoggedIn = useAuth(true); // Pass true to skip redirection
 
   return (
     <header className="navbar navbar-expand-md mb-3 border-bottom row custom-navbar">
@@ -93,13 +90,19 @@ function Header() {
               </ul>
             </div>
           </ul>
-          <div className="d-flex align-itemscenter">
+          <div className="d-flex align-items-center">
             <Button
               onClick={handleShowCart}
               className="nav-link px-1 link-secondary"
             >
-              <img src={cartIcon} style={{ height: "2rem" }} />({totalCartItems}
-              )
+              <img src={cartIcon} style={{ height: "2rem" }} />
+              {totalCartItems === 0 ? (
+                <span></span>
+              ) : (
+                <span className="bg-danger rounded-circle text-light p-md-1">
+                  {totalCartItems}
+                </span>
+              )}
             </Button>
             <Button className="nav-link px-1 link-secondary position-relative">
               <Link to="/productList" className="dropdown-item">
@@ -109,7 +112,7 @@ function Header() {
                 </span>
               </Link>
             </Button>
-          </div>{" "}
+          </div>
           <ul className="nav col-12 col-md-auto mb-2 mb-md-0 align-items-center">
             {!isLoggedIn && (
               <>
@@ -125,9 +128,11 @@ function Header() {
                 </li>
               </>
             )}
-            <li>
-              <ProfileImage />
-            </li>
+            {isLoggedIn && (
+              <li>
+                <ProfileImage />
+              </li>
+            )}
           </ul>
         </div>
       </div>
