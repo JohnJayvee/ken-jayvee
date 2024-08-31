@@ -1,0 +1,1 @@
+import{u as n,r as o}from"./index-ud2iyfy7.js";const r=(e=!1)=>{const t=n(),[a,s]=o.useState(!1);return o.useEffect(()=>{localStorage.getItem("token")||sessionStorage.getItem("token")?s(!0):(s(!1),e||t("/login",{replace:!0}))},[t,e]),a},c=r;export{c as u};
