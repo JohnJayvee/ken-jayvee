@@ -20,12 +20,15 @@ const ProductListTable = () => {
   const [error, setError] = useState(null);
   const { user } = useUser();
 
+  const currentUser = user ? user.id : 0;
+
   useEffect(() => {
     const fetchOrders = async () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          `http://white-emu-581912.hostingersite.com/api/user/orders/${user.id}`
+          `http://white-emu-581912.hostingersite.com/api/user/orders/${currentUser}`,
+          { headers: { "Content-Type": "application/json" } }
         );
         setLoadedItem(response.data.user);
         console.log(response.data.user);
@@ -37,7 +40,7 @@ const ProductListTable = () => {
     };
 
     fetchOrders();
-  }, [user.id]);
+  }, [currentUser]);
 
   const handleDelete = async (id) => {
     try {

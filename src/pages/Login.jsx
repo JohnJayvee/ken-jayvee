@@ -113,6 +113,7 @@ const LoginForm = () => {
             alt="back to home button"
             style={{ height: "3rem" }}
           />
+          <span className="h3-md">Home</span>
         </Link>
       </span>
       <div className="container">
