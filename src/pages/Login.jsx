@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logoSVG from "./logo-transparent.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import toHome from "../images/back-to-home.png";
 import { useUser } from "../Context/UserContext.jsx";
 import { API_ENDPOINTS } from "../BaseUrl.jsx";
 const LoginForm = () => {
@@ -103,100 +104,112 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row justify-content-center align-items-center min-vh-100">
-        <div className="col-12 col-md-6 col-lg-4">
-          <div className="card shadow-sm">
-            <div className="card-body">
-              <div className="text-center mb-2">
-                <img src={logoSVG} alt="Logo" style={{ maxWidth: "150px" }} />
-              </div>
-              <h3 className="text-center mb-4">Login</h3>
-              {generalError && (
-                <div className="text-center text-danger mb-3">
-                  {generalError}
+    <>
+      <span>
+        <Link to={"/home"}>
+          <img
+            className="m-md-3"
+            src={toHome}
+            alt="back to home button"
+            style={{ height: "3rem" }}
+          />
+        </Link>
+      </span>
+      <div className="container">
+        <div className="row justify-content-center align-items-center min-vh-100">
+          <div className="col-12 col-md-6 col-lg-4">
+            <div className="card shadow-sm">
+              <div className="card-body">
+                <div className="text-center mb-2">
+                  <img src={logoSVG} alt="Logo" style={{ maxWidth: "150px" }} />
                 </div>
-              )}
-              <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
-                    Email address
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="Enter your email"
-                    required
-                  />
-                  {loginError && (
-                    <div className="text-danger">{loginError}</div>
-                  )}
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
-                  <div className="input-group">
+                <h3 className="text-center mb-4">Login</h3>
+                {generalError && (
+                  <div className="text-center text-danger mb-3">
+                    {generalError}
+                  </div>
+                )}
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-3">
+                    <label htmlFor="email" className="form-label">
+                      Email address
+                    </label>
                     <input
-                      type={passwordVisible ? "text" : "password"}
+                      type="text"
                       className="form-control"
-                      id="password"
-                      name="password"
-                      value={formData.password}
+                      id="email"
+                      name="email"
+                      value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="Enter your password"
+                      placeholder="Enter your email"
                       required
                     />
-                    <button
-                      type="button"
-                      className="btn btn-outline-secondary"
-                      onClick={togglePasswordVisibility}
-                    >
-                      <FontAwesomeIcon
-                        icon={passwordVisible ? faEyeSlash : faEye}
-                      />
-                    </button>
+                    {loginError && (
+                      <div className="text-danger">{loginError}</div>
+                    )}
                   </div>
-                  {passwordError && (
-                    <div className="text-danger">{passwordError}</div>
-                  )}
-                </div>
-                <div className="mb-3 form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="rememberMe"
-                    checked={formData.rememberMe}
-                    onChange={handleRememberMeChange}
-                  />
-                  <label className="form-check-label" htmlFor="rememberMe">
-                    Remember Me
-                  </label>
-                </div>
-                <button type="submit" className="btn btn-dark w-100">
-                  Login
-                </button>
-                <div className="text-sm mt-2">
-                  <p className="h6">
-                    New to Pawgo Shop?{" "}
-                    <Link
-                      className="text-danger link-underline-light"
-                      to="/register"
-                    >
-                      Sign Up
-                    </Link>{" "}
-                  </p>
-                </div>
-              </form>
+                  <div className="mb-3">
+                    <label htmlFor="password" className="form-label">
+                      Password
+                    </label>
+                    <div className="input-group">
+                      <input
+                        type={passwordVisible ? "text" : "password"}
+                        className="form-control"
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleInputChange}
+                        placeholder="Enter your password"
+                        required
+                      />
+                      <button
+                        type="button"
+                        className="btn btn-outline-secondary"
+                        onClick={togglePasswordVisibility}
+                      >
+                        <FontAwesomeIcon
+                          icon={passwordVisible ? faEyeSlash : faEye}
+                        />
+                      </button>
+                    </div>
+                    {passwordError && (
+                      <div className="text-danger">{passwordError}</div>
+                    )}
+                  </div>
+                  <div className="mb-3 form-check">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id="rememberMe"
+                      checked={formData.rememberMe}
+                      onChange={handleRememberMeChange}
+                    />
+                    <label className="form-check-label" htmlFor="rememberMe">
+                      Remember Me
+                    </label>
+                  </div>
+                  <button type="submit" className="btn btn-dark w-100">
+                    Login
+                  </button>
+                  <div className="text-sm mt-2">
+                    <p className="h6">
+                      New to Pawgo Shop?{" "}
+                      <Link
+                        className="text-danger link-underline-light"
+                        to="/register"
+                      >
+                        Sign Up
+                      </Link>{" "}
+                    </p>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
