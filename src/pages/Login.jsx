@@ -106,14 +106,14 @@ const LoginForm = () => {
   return (
     <>
       <span>
-        <Link to={"/home"}>
+        <Link to={"/home"} className="text-dark link-underline-light">
           <img
             className="m-md-3"
             src={toHome}
             alt="back to home button"
             style={{ height: "3rem" }}
           />
-          <span className="h3-md">Home</span>
+          <span className="h3 fw-bolder ">Home</span>
         </Link>
       </span>
       <div className="container">

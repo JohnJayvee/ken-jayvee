@@ -26,11 +26,11 @@ function Header() {
 
   return (
     <header className="navbar navbar-expand-md mb-3 border-bottom row custom-navbar">
-      <div className="container-fluid d-flex justify-content-between">
+      <div className="container-fluid d-flex justify-content-md-between">
         <div className="col-md">
           <Link
             to="/"
-            className="d-flex link-body-emphasis text-decoration-none"
+            className="d-flex link-body-emphasis text-decoration-none justify-content-sm-center"
           >
             <img src={logoSVG} style={{ height: "3rem" }} />
             <p className="h2 text-warning-emphasis">PawGo</p>
@@ -129,7 +129,7 @@ function Header() {
               </>
             )}
             {isLoggedIn && (
-              <li>
+              <li style={{ height: "100px" }}>
                 <ProfileImage />
               </li>
             )}

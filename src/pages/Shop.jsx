@@ -48,12 +48,15 @@ export default function Shop() {
       <main className="container my-4">
         <h1 className="text-center mb-4">Shop</h1>
 
-        <p className="h3 text-center mb-4">{`Total Products: ${loadedItem.totalProducts}`}</p>
+        <p className="h3 text-center mb-2">{`Total Products: ${loadedItem.totalProducts}`}</p>
 
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-md-center">
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-sm-center justify-content-xs-center">
           <div className="d-flex flex-wrap col-md-6">
             {paginatedProducts.map((item) => (
-              <div className="col d-flex rounded mb-2" key={item.id}>
+              <div
+                className="col d-flex rounded m-3 justify-content-sm-center justify-content-center"
+                key={item.id}
+              >
                 <FoodItem foods={item} />
               </div>
             ))}
@@ -64,10 +67,10 @@ export default function Shop() {
           <nav>
             <ul className="pagination">
               {Array.from({ length: totalPages }, (_, index) => (
-                <li key={index + 1} className="page-item ">
+                <li key={index + 1} className="page-item">
                   <button
                     onClick={() => handlePageChange(index + 1)}
-                    className={`page-link ${
+                    className={`page-link  ${
                       currentPage === index + 1 ? "active" : ""
                     }`}
                   >

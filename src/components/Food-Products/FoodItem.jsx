@@ -10,7 +10,7 @@ export default function FoodItem({ foods }) {
   }
   return (
     <li className="food-item list-group-item">
-      <div className="item-card row">
+      <div className="item-card row" aria-hidden="true">
         <div className="col-md">
           <img
             className="rounded mt-2 "
@@ -19,7 +19,7 @@ export default function FoodItem({ foods }) {
             alt={foods.name}
           />
         </div>
-        <div>
+        <div className="col-md-auto">
           <h3>{foods.name}</h3>
 
           <p className="food-item-description m-0">
@@ -27,13 +27,14 @@ export default function FoodItem({ foods }) {
           </p>
         </div>
 
-        <div className="row g-md-1 d-flex justify-content-md-center">
+        <div className="row g-sm-1 d-flex justify-content-md-center ">
           <dt className="food-item-price col-md-7 col-sm m-sm-1">
             ₱{foods.price}
           </dt>
           <Button
             className="btn-outline-light col-md-7 col-sm p-0 "
             onClick={handleAddFoodToCart}
+            aria-disabled="true"
           >
             Add to Cart
           </Button>
