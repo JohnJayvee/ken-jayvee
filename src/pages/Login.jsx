@@ -9,6 +9,7 @@ import { useUser } from "../Context/UserContext.jsx";
 import { API_ENDPOINTS } from "../BaseUrl.jsx";
 const LoginForm = () => {
   const navigate = useNavigate();
+  const [fieldErrors, setFieldErrors] = useState({});
   const { setUser } = useUser();
   const [formData, setFormData] = useState({
     email: "",
@@ -106,7 +107,7 @@ const LoginForm = () => {
   return (
     <>
       <span>
-        <Link to={"/home"} className="text-dark link-underline-light">
+        <Link to={"/"} className="text-dark link-underline-light">
           <img
             className="m-md-3"
             src={toHome}

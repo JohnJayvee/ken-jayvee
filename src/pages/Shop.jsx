@@ -8,7 +8,7 @@ import useHttp from "../components/Hooks/useHttp";
 
 const requestConfig = {};
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 10;
 
 export default function Shop() {
   const {
@@ -51,7 +51,7 @@ export default function Shop() {
         <p className="h3 text-center mb-2">{`Total Products: ${loadedItem.totalProducts}`}</p>
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-sm-center justify-content-xs-center">
-          <div className="d-flex flex-wrap col-md-6">
+          <div className="d-flex  col-md-auto flex-wrap">
             {paginatedProducts.map((item) => (
               <div
                 className="col d-flex rounded m-3 justify-content-sm-center justify-content-center"
