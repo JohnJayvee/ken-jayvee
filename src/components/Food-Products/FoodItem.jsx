@@ -9,7 +9,7 @@ export default function FoodItem({ foods }) {
     cartCtx.addItem(foods);
   }
   return (
-    <li className="food-item ">
+    <li className="food-item list-group-item">
       <div className="item-card row">
         <div className="col-md">
           <img
