@@ -8,7 +8,7 @@ import useHttp from "../components/Hooks/useHttp";
 
 const requestConfig = {};
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 10;
 
 export default function Shop() {
   const {
@@ -48,17 +48,19 @@ export default function Shop() {
       <main className="container my-4">
         <h1 className="text-center mb-4">Shop</h1>
 
-        <p className="h3 text-center mb-4">{`Total Products: ${loadedItem.totalProducts}`}</p>
+        <p className="h3 text-center mb-2">{`Total Products: ${loadedItem.totalProducts}`}</p>
 
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-2">
-          {paginatedProducts.map((item) => (
-            <div
-              className="col d-flex justify-content-center"
-              key={item.id}
-            >
-              <FoodItem foods={item} />
-            </div>
-          ))}
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-sm-center justify-content-xs-center">
+          <div className="d-flex  col-md-auto flex-wrap">
+            {paginatedProducts.map((item) => (
+              <div
+                className="col d-flex rounded m-3 justify-content-sm-center justify-content-center"
+                key={item.id}
+              >
+                <FoodItem foods={item} />
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="d-flex justify-content-center mt-4">
@@ -68,7 +70,9 @@ export default function Shop() {
                 <li key={index + 1} className="page-item">
                   <button
                     onClick={() => handlePageChange(index + 1)}
-                    className={`page-link ${currentPage === index + 1 ? 'active' : ''}`}
+                    className={`page-link  ${
+                      currentPage === index + 1 ? "active" : ""
+                    }`}
                   >
                     {index + 1}
                   </button>
