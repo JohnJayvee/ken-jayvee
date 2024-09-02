@@ -1,0 +1,1 @@
+import{r,b as c,j as m}from"./index-HbZ0blC-.js";function n({children:s,open:e,className:a="",onClose:l}){const o=r.useRef();return r.useEffect(()=>{const t=o.current;return e&&t.showModal(),()=>t.close()},[e]),c.createPortal(m.jsx("dialog",{ref:o,className:`simple-modal ${a}`,onClose:l,children:s}),document.getElementById("modal"))}export{n as M};
