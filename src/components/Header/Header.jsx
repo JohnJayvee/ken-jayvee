@@ -26,7 +26,7 @@ function Header() {
 
   return (
     <header className="navbar navbar-expand-md custom-navbar border-bottom">
-      <div className="container-fluid p-0">
+      <div className="container-fluid p-0 row">
         <div className="col col-md-2 col-sm row d-flex justify-content-sm-between">
           <div className="col-md-10 col-sm-6 col-6">
             <Link
@@ -50,9 +50,9 @@ function Header() {
           </div>
         </div>
 
-        <div className="col-lg-6 ">
+        <div className="col-lg-6 col-md-9">
           <div className="navbar-collapse collapse" id="navbarCollapse">
-            <ul className="navbar-nav col-3 col-md-6 mb-2 mb-md-0 me-3 custom-navbar-nav  ">
+            <ul className="navbar-nav col col-md mb-2 mb-md-0 me-3 custom-navbar-nav ms-sm-3 ">
               <li>
                 <Link to="/home" className="nav-link px-2 ">
                   Home
@@ -92,7 +92,7 @@ function Header() {
               </div>
             </ul>
             <div className="col-md-6 row">
-              <div className="col-md-6 d-flex align-items-md-center justify-content-center">
+              <div className="col-md d-flex align-items-md-center justify-content-sm-start">
                 <Button
                   onClick={handleShowCart}
                   className="nav-link px-1 link-secondary"
@@ -115,29 +115,29 @@ function Header() {
                   </Link>
                 </Button>
               </div>
-              <ul className="nav col-md-6 col-md-auto mb-2 mb-md-0 me-md-0">
+              <ul className="nav col-md col-lg mb-2 mb-md-0 me-md-0 ms-sm-3 mt-3">
                 {!isLoggedIn && (
                   <>
-                    <li>
+                    <Button className="btn-outline-dark rounded-pill p-0 me-sm-2 me-2 ms-3">
                       <Link
                         to="/login"
                         className="nav-link px-2 link-secondary"
                       >
                         Login
                       </Link>
-                    </li>
-                    <li>
+                    </Button>
+                    <Button className="btn-outline-primary rounded-pill p-0">
                       <Link
                         to="/register"
                         className="nav-link px-2 link-secondary"
                       >
                         Sign Up
                       </Link>
-                    </li>
+                    </Button>
                   </>
                 )}
                 {isLoggedIn && (
-                  <li className="">
+                  <li>
                     <ProfileImage />
                   </li>
                 )}
