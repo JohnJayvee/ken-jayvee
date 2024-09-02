@@ -66,7 +66,12 @@ export default function DropdownProfile() {
             "https://bit.ly/dan-abramov"
           }
           alt={`${user.name}`}
-          style={{ height: "75px" }}
+          style={{
+            display: " inline-block",
+            width: "65px",
+            height: "65px",
+            borderRadius: "50%",
+          }}
         />
         <p className="h4">{user.username}</p>
         <p className="h6">{user.email}</p>

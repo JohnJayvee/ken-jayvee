@@ -72,7 +72,6 @@ export default function Register() {
         setFieldErrors(error.response.data.errors);
         // setGeneralError("Please fix the highlighted errors.");
         setGeneralError("Please check all the fields");
-
       } else {
         console.error("Error submitting registration form:", error);
         setGeneralError("An unexpected error occurred. Please try again.");

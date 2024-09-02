@@ -35,6 +35,7 @@ export default function ProfileImage() {
         });
     }
   }, []);
+
   const isLoggedIn = useAuth();
   if (!isLoggedIn) {
     return null;
@@ -43,21 +44,19 @@ export default function ProfileImage() {
   return (
     <>
       <Button
-        className="btn btn-outline-light dropdown-toggle p-0 ms-2"
+        className="btn btn-outline-light dropdown-toggle p-0"
         type="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"
         onClick={() => setLoadedProfile((prev) => !prev)}
       >
-        <div className="dropdown-center">
+        <div className="dropdown-center custom-profile overflow-hidden">
           <img
-            className="rounded-5"
             src={
               `${API_ENDPOINTS.FETCH_IMAGE}/${user.imageUrl}` ||
               "https://bit.ly/dan-abramov"
             }
             alt={`${user.name}`}
-            style={{ height: "75px" }}
           />
         </div>
       </Button>

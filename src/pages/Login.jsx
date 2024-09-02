@@ -49,6 +49,7 @@ const LoginForm = () => {
     setLoginError("");
     setPasswordError("");
     setGeneralError("");
+    setFieldErrors({});
 
     try {
       const response = await axios.post(
@@ -187,6 +188,7 @@ const LoginForm = () => {
                       checked={formData.rememberMe}
                       onChange={handleRememberMeChange}
                     />
+
                     <label className="form-check-label" htmlFor="rememberMe">
                       Remember Me
                     </label>
