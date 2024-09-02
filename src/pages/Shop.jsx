@@ -8,7 +8,7 @@ import useHttp from "../components/Hooks/useHttp";
 
 const requestConfig = {};
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 8;
 
 export default function Shop() {
   const {

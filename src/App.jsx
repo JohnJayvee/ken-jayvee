@@ -53,8 +53,8 @@ function App() {
       <CartContextProvider>
         <Cart />
         <Checkout />
-
         <ShowUpdateModal />
+
         <Suspense>{element}</Suspense>
 
         <GoTop />

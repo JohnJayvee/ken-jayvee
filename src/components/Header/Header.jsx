@@ -137,7 +137,7 @@ function Header() {
                   </>
                 )}
                 {isLoggedIn && (
-                  <li>
+                  <li className="position-relative">
                     <ProfileImage />
                   </li>
                 )}

@@ -4,7 +4,6 @@ import { API_ENDPOINTS } from "../../BaseUrl";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../Context/UserContext";
-import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 
 export default function DropdownProfile() {
   const [array, setArray] = useState([]);
@@ -57,8 +56,8 @@ export default function DropdownProfile() {
     }
   }, []);
   return (
-    <div className="d-flex custom-dropdown dropdown-menu mt-3">
-      <ul className="d-flex-col ">
+    <div className="dropdown-menu custom-dropdown d-flex position-absolute top-20 end-0">
+      <ul className="d-flex-reverse ">
         <img
           className="rounded-5"
           src={

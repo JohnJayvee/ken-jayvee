@@ -10,10 +10,10 @@ import { useUser } from "../../Context/UserContext";
 
 const ProductListTable = () => {
   const cartCtx = useContext(CartContext);
+  const userProgressCtx = useContext(UserProgressContext);
   const [deletedItem, setDeletedItem] = useState([]);
   const [editedItem, setEditedItem] = useState([]);
   const [isAction, setIsAction] = useState(false);
-  const userProgressCtx = useContext(UserProgressContext);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [loadedItem, setLoadedItem] = useState(null);
@@ -54,20 +54,47 @@ const ProductListTable = () => {
     }
   };
 
+  const config = {
+    headers: { Authorization: `Bearer ${user.token}` },
+  };
+
   const handleEditListener = async (id) => {
     try {
-      await axios.put(
-        `http://white-emu-581912.hostingersite.com/api/order/update/${id}`
+      const response = await axios.get(
+        `http://white-emu-581912.hostingersite.com/api/user/order/${id}`,
+        config
       );
-      setEditedItem((prevItems) => prevItems.filter((item) => item.id !== id));
+      console.log(response.data.order);
     } catch (error) {
       console.error("Failed to update activity:", error);
     }
   };
-
-  const handleEdit = (order) => {
-    setSelectedItem(order.id);
-    console.log(order.data);
+  function handleShowUpdateOrder() {
+    userProgressCtx.showUpdateOrder();
+  }
+  const handleUpdate = (id) => {
+    try {
+      const response = axios
+        .put(
+          `http://white-emu-581912.hostingersite.com/api/order/update/${id}`,
+          data,
+          config
+        )
+        .then((response) => {
+          console.log(response.data.order);
+        });
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    }
   };
 
   if (isLoading) {
@@ -114,7 +141,7 @@ const ProductListTable = () => {
               <td className="row d-flex justify-content-md-end me-2">
                 <Button
                   className="btn-dark col-md-7 mb-sm-2 p-sm-4"
-                  onClick={() => handleEditListener(order.id)}
+                  onClick={handleShowUpdateOrder}
                 >
                   Edit
                 </Button>

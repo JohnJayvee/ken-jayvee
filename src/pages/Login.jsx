@@ -78,6 +78,7 @@ const LoginForm = () => {
           imageUrl: response.data.user.image || "https://bit.ly/dan-abramov",
           email: response.data.user.email || null,
           username: response.data.user.username || null,
+          token: response.data.token || null,
         });
 
         response.data.user.id;

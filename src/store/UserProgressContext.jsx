@@ -8,6 +8,8 @@ const UserProgressContext = createContext({
   hideCheckout: () => {},
   showFeedback: () => {},
   hideFeedback: () => {},
+  showUpdateOrder: () => {},
+  hideUpdateOrder: () => {},
 });
 
 export function UserProgressContextProvider({ children }) {
@@ -34,7 +36,7 @@ export function UserProgressContextProvider({ children }) {
     setUserProgress("");
   }
   function showUpdateOrder() {
-    setUserProgress("order");
+    setUserProgress("updateOrder");
   }
   function hideUpdateOrder() {
     setUserProgress("");
