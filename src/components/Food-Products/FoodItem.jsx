@@ -23,7 +23,7 @@ export default function FoodItem({ foods }) {
           <h3>{foods.name}</h3>
 
           <p className="food-item-description m-0">
-            {`- ${foods.description.substring(0, 60)} -`}
+            {`- ${foods.description.substring(0, 15)} -`}
           </p>
         </div>
 

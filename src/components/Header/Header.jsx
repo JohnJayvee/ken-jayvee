@@ -52,7 +52,7 @@ function Header() {
 
         <div className="col-lg-6 col-md-9">
           <div className="navbar-collapse collapse" id="navbarCollapse">
-            <ul className="navbar-nav col col-md mb-2 mb-md-0 me-3 custom-navbar-nav ms-sm-3 ">
+            <ul className="navbar-nav col col-md-6 mb-2 mb-md-0 me-3 custom-navbar-nav ms-sm-3 ">
               <li>
                 <Link to="/home" className="nav-link px-2 ">
                   Home
@@ -91,22 +91,22 @@ function Header() {
                 </ul>
               </div>
             </ul>
-            <div className="col-md-6 row">
-              <div className="col-md d-flex align-items-md-center justify-content-sm-start">
+            <div className="col col-md-6 row">
+              <div className="col col-md d-flex  row align-items-center justify-content-sm-start">
                 <Button
                   onClick={handleShowCart}
-                  className="nav-link px-1 link-secondary"
+                  className="nav-link  link-secondary col-6"
                 >
                   <img src={cartIcon} style={{ height: "2rem" }} />
                   {totalCartItems === 0 ? (
                     <span></span>
                   ) : (
-                    <span className="bg-danger rounded-circle text-light p-md-1">
+                    <span className="bg-danger rounded-circle text-light p-1">
                       {totalCartItems}
                     </span>
                   )}
                 </Button>
-                <Button className="nav-link px-1 link-secondary position-relative">
+                <Button className="nav-link link-secondary position-relative col-6">
                   <Link to="/productList" className="dropdown-item ">
                     <img src={myOrderIcon} style={{ height: "4rem" }} />
                     <span className="position-absolute top-100 start-50 translate-middle badge rounded-pill bg-warning">
