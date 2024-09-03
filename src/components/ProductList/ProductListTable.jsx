@@ -55,7 +55,7 @@ const ProductListTable = () => {
   };
 
   const config = {
-    headers: { Authorization: `Bearer ${user.token}` },
+    headers: { Authorization: `Bearer ${user?.token}` },
   };
 
   const handleEditListener = async (id) => {

@@ -65,7 +65,7 @@ export default function Shop() {
 
         <div className="d-flex justify-content-center mt-4">
           <nav>
-            <ul className="pagination">
+            <ul className="pagination bg-outline-dark">
               {Array.from({ length: totalPages }, (_, index) => (
                 <li key={index + 1} className="page-item">
                   <button
