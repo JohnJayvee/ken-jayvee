@@ -64,11 +64,13 @@ const ProductListTable = () => {
         `http://white-emu-581912.hostingersite.com/api/user/order/${id}`,
         config
       );
+      userProgressCtx.setOrderData(response.data.order); //store the data in context useProgress
       console.log(response.data.order);
     } catch (error) {
       console.error("Failed to update activity:", error);
     }
   };
+
   function handleShowUpdateOrder(id) {
     userProgressCtx.showUpdateOrder();
     handleEditListener(id);

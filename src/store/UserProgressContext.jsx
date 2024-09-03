@@ -10,10 +10,13 @@ const UserProgressContext = createContext({
   hideFeedback: () => {},
   showUpdateOrder: () => {},
   hideUpdateOrder: () => {},
+  orderData: null, // state for order data
+  setOrderData: () => {}, // method to set order data
 });
 
 export function UserProgressContextProvider({ children }) {
   const [userProgress, setUserProgress] = useState("");
+  const [orderData, setOrderData] = useState(null);
 
   function showCart() {
     setUserProgress("cart");
@@ -52,8 +55,9 @@ export function UserProgressContextProvider({ children }) {
     hideFeedback,
     showUpdateOrder,
     hideUpdateOrder,
+    orderData,
+    setOrderData, //order state
   };
-
   return (
     <UserProgressContext.Provider value={userProgressCtx}>
       {children}
