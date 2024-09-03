@@ -1,1 +1,0 @@
-import{j as r}from"./index-CZFOe6RL.js";const n=({title:s,message:e,className:a="",...c})=>r.jsx(r.Fragment,{children:r.jsxs("div",{className:`error ${a}`,...c,children:[r.jsx("p",{className:"h2",children:s}),r.jsx("p",{className:"h3",children:e})]})}),t=n;export{t as E};
