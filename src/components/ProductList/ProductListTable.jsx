@@ -69,33 +69,10 @@ const ProductListTable = () => {
       console.error("Failed to update activity:", error);
     }
   };
-  function handleShowUpdateOrder() {
+  function handleShowUpdateOrder(id) {
     userProgressCtx.showUpdateOrder();
+    handleEditListener(id);
   }
-  const handleUpdate = (id) => {
-    try {
-      const response = axios
-        .put(
-          `http://white-emu-581912.hostingersite.com/api/order/update/${id}`,
-          data,
-          config
-        )
-        .then((response) => {
-          console.log(response.data.order);
-        });
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
-      console.log(error.config);
-    }
-  };
 
   if (isLoading) {
     return <p className="h2 text-center">Fetching product list data...</p>;
@@ -141,7 +118,10 @@ const ProductListTable = () => {
               <td className="row d-flex justify-content-md-end me-2">
                 <Button
                   className="btn-dark col-md-7 mb-sm-2 p-sm-4"
-                  onClick={handleShowUpdateOrder}
+                  onClick={() => {
+                    handleShowUpdateOrder(order.id);
+                    handleEditListener(order.id);
+                  }}
                 >
                   Edit
                 </Button>
