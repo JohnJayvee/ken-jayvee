@@ -88,8 +88,8 @@ const LoginForm = () => {
       if (error.response) {
         const errors = error.response.data.errors;
         if (errors) {
-          if (errors.email) {
-            setLoginError(errors.email[0]);
+          if (errors.login) {
+            setLoginError(errors.login[0]);
           }
           if (errors.password) {
             setPasswordError(errors.password[0]);
@@ -97,7 +97,7 @@ const LoginForm = () => {
         } else {
           setGeneralError(
             error.response.data.message ||
-              "Something went wrong. Please try again."
+            "Something went wrong. Please try again."
           );
         }
       } else {
@@ -133,7 +133,7 @@ const LoginForm = () => {
                     {generalError}
                   </div>
                 )}
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} noValidate>
                   <div className="mb-3">
                     <label htmlFor="email" className="form-label">
                       Email address
