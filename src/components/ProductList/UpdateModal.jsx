@@ -15,32 +15,35 @@ const UpdateModal = () => {
   const config = {
     headers: { Authorization: `Bearer ${user.token}` },
   };
+  const handleUpdate = async (e, id) => {
+    e.preventDefault(); // Ensure this is called
 
-  useEffect(() => {
-    const handleUpdate = async (e, id) => {
-      e.preventDefault(); // Ensure this is called
-
-      try {
-        const response = await axios.put(
+    try {
+      await axios
+        .put(
           `http://white-emu-581912.hostingersite.com/api/order/update/${id}`,
           orderData,
           config
-        );
-        console.log(response.data.order);
-      } catch (error) {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
+        )
+        .then((response) => {
+          if (response) {
+            console.log(response.data.order);
+            window.location.reload();
+          }
+        });
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
       }
-    };
-  }, [orderData]);
+      console.log(error.config);
+    }
+  };
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;

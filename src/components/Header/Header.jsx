@@ -115,10 +115,10 @@ function Header() {
                   </Link>
                 </Button>
               </div>
-              <ul className="nav col-md col-lg mb-2 mb-md-0 me-md-0 ms-sm-3 mt-3">
+              <ul className="nav col-md-6 col-lg-6 mb-2 mb-md-0 me-md-0 ms-sm-3 mt-3">
                 {!isLoggedIn && (
                   <>
-                    <Button className="btn-outline-dark rounded-pill p-0 me-sm-2 me-2 ms-3">
+                    <Button className="btn-outline-primary rounded-pill p-0 me-sm-2 me-2 ms-3">
                       <Link
                         to="/login"
                         className="nav-link px-2 link-secondary"
@@ -126,7 +126,7 @@ function Header() {
                         Login
                       </Link>
                     </Button>
-                    <Button className="btn-outline-primary rounded-pill p-0">
+                    <Button className="btn-outline-warning rounded-pill p-0">
                       <Link
                         to="/register"
                         className="nav-link px-2 link-secondary"
