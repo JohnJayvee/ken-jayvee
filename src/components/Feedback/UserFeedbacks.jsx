@@ -49,17 +49,20 @@ export default function UserFeedbacks() {
       <div className="container">
         <div className="row">
           {paginatedFeedbacks.map((feedbackItem) => (
-            <div key={feedbackItem.id} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div
+              key={feedbackItem.id}
+              className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
+            >
               <div className="card h-100">
                 <img
                   className="card-img-top rounded-circle mx-auto mt-3"
                   src={`${API_ENDPOINTS.FETCH_IMAGE}/${feedbackItem.image}`}
                   alt={feedbackItem.name}
-                  style={{ height: "6rem", objectFit: "cover" }}
+                  style={{ height: "100px", objectFit: "fill", width: "100px" }}
                 />
                 <div className="card-body text-center">
                   <h5 className="card-title">{feedbackItem.name}</h5>
-                  <p className="card-text">{feedbackItem.feedback}</p>
+                  <p className="card-text">{`"${feedbackItem.feedback}"`}</p>
                 </div>
               </div>
             </div>
@@ -71,7 +74,9 @@ export default function UserFeedbacks() {
               {Array.from({ length: totalPages }, (_, index) => (
                 <li
                   key={index + 1}
-                  className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
+                  className={`page-item ${
+                    currentPage === index + 1 ? "active" : ""
+                  }`}
                 >
                   <button
                     className="page-link"

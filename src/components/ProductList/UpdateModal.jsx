@@ -5,11 +5,9 @@ import Button from "../UI/Button";
 import Input from "../UI/InputBlock";
 import axios from "axios";
 import { useUser } from "../../Context/UserContext";
-import CartContext from "../../store/CartContext";
 import { API_ENDPOINTS } from "../../BaseUrl";
 
 const UpdateModal = () => {
-  const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
   const user = useUser();
   const { orderData } = userProgressCtx;
@@ -18,29 +16,31 @@ const UpdateModal = () => {
     headers: { Authorization: `Bearer ${user.token}` },
   };
 
-  const handleUpdate = async (e, id) => {
-    e.preventDefault(); // Ensure this is called
+  useEffect(() => {
+    const handleUpdate = async (e, id) => {
+      e.preventDefault(); // Ensure this is called
 
-    try {
-      const response = await axios.put(
-        `http://white-emu-581912.hostingersite.com/api/order/update/${id}`,
-        orderData,
-        config
-      );
-      console.log(response.data.order);
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
+      try {
+        const response = await axios.put(
+          `http://white-emu-581912.hostingersite.com/api/order/update/${id}`,
+          orderData,
+          config
+        );
+        console.log(response.data.order);
+      } catch (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
       }
-      console.log(error.config);
-    }
-  };
+    };
+  }, [orderData]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -101,6 +101,7 @@ const UpdateModal = () => {
                   value={orderData?.quantity || ""}
                   onChange={handleOnChange}
                 />
+
                 <p className="h3">{`Total Price: ${orderData?.totalPrice}`}</p>
               </div>
               <div className="right-modal col col-md-6 row">
